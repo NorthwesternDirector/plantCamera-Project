@@ -1,0 +1,795 @@
+<div class="main_container">
+    <div class="col-md-3 left_col">
+        <div class="left_col scroll-view">
+        <div class="navbar nav_title" style="border: 0;">
+            <a asp-controller="Home" asp-action="Index" class="site_title"><i class="fa fa-leaf"></i> <span>Plant Camera</span></a>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <!-- menu profile quick info -->
+        <div class="profile clearfix">
+            <div class="profile_pic">
+            <img src="~/images/user.png" alt="..." class="img-circle profile_img">
+            </div>
+            <div class="profile_info">
+            <span>欢迎您，</span>
+            <h2>@ViewData["UserName"]</h2>
+            </div>
+        </div>
+        <!-- /menu profile quick info -->
+
+        <br />
+
+        <!-- sidebar menu -->
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div class="menu_section">
+            <h3>主要功能</h3>
+            <ul class="nav side-menu">
+                <li><a asp-controller="Home" asp-action="Index"><i class="fa fa-desktop"></i> 主页 </a>
+                </li>
+                <li><a><i class="fa fa-camera"></i> 相册管理 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a asp-controller="Camera" asp-action="Album">我的相册</a></li>
+                    <li><a asp-controller="Camera" asp-action="Upload">图片上传</a></li>
+                </ul>
+                </li>
+                <li><a><i class="fa fa-map"></i> 地图显示 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a asp-controller="Map" asp-action="MyPhotoMap">个人足迹</a></li>
+                    <li><a asp-controller="Map" asp-action="PlantMap">植物地图</a></li>
+                    <li><a asp-controller="Map" asp-action="PlantSearch">植物检索</a></li>
+                </ul>
+                </li>
+                <li class="active"><a><i class="fa fa-bar-chart-o"></i> 分析专题 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a asp-controller="Analysis" asp-action="Topic">分析专题</a></li>
+                    <li><a asp-controller="Analysis" asp-action="PointsMap">观测站点</a></li>
+                    <li><a asp-controller="Analysis" asp-action="stationsAnalysis">站点分析</a></li>
+                </ul>
+                </li>
+                <li><a><i class="fa fa-cogs"></i> 个人设置 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a asp-controller="Manage" asp-action="ChangePassword">修改密码</a></li>
+                    <li><a asp-controller="Manage" asp-action="ChangeProfile">修改头像</a></li>
+                    <li><a asp-controller="Manage" asp-action="ConfirmEmail">邮箱绑定</a></li>
+                </ul>
+                </li>
+            </ul>
+            </div>
+            <div class="menu_section">
+            <h3>其他</h3>
+            <ul class="nav side-menu">
+                <li><a><i class="fa fa-bug"></i> 开发者 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a asp-controller="Developer" asp-action="Contact">联系我们</a></li>
+                </ul>
+                </li>   
+                <li><a><i class="fa fa-tasks"></i> 高级功能 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a asp-controller="Developer" asp-action="DataReview">数据审查</a></li>
+                    <li><a asp-controller="Developer" asp-action="UsersManage">用户管理</a></li>
+                    <li><a asp-controller="Developer" asp-action="DataOutput">数据导出</a></li>
+                </ul>
+                </li>           
+                <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> 拓展功能 <span class="label label-success pull-right">建设中</span></a></li>
+            </ul>
+            </div>
+
+        </div>
+        <!-- /sidebar menu -->
+
+        <!-- /menu footer buttons -->
+        <div class="sidebar-footer hidden-small">
+            <a data-toggle="tooltip" data-placement="top" title="Settings">
+            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="Lock">
+            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="注销" asp-controller="Account" asp-action="Login">
+            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+            </a>
+        </div>
+        <!-- /menu footer buttons -->
+        </div>
+    </div>
+
+    <!-- top navigation -->
+    <div class="top_nav">
+        <div class="nav_menu">
+            <nav>
+                <div class="nav toggle">
+                    <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="">
+                        <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <img src="~/images/user.png" alt="">@ViewData["UserName"]
+                        <span class="fa fa-angle-down"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-usermenu pull-right">
+                        <li>
+                            <a href="javascript:;">
+                            <span class="badge bg-red pull-right">50%</span>
+                            <span>帮助</span>
+                            </a>
+                        </li>
+                        <li><a asp-controller="Account" asp-action="Login"><i class="fa fa-sign-out pull-right"></i>注销</a></li>
+                        </ul>
+                    </li>
+
+                    <li role="presentation" class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-envelope-o"></i>
+                        <span class="badge bg-green">1</span>
+                        </a>
+                        <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                        <li>
+                            <a>
+                            <span class="image"><img src="~/images/user.png" alt="Profile Image" /></span>
+                            <span>
+                                <span>管理员</span>
+                                <span class="time">3分钟前</span>
+                            </span>
+                            <span class="message">
+                                您有新的消息，请及时查看
+                            </span>
+                            </a>
+                        </li>
+                        <li>
+                            <div class="text-center">
+                            <a>
+                                <strong>查看所有消息</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                            </div>
+                        </li>
+                        </ul>
+                    </li>
+                    <li style="padding-top:14px;">
+                        <div id="tp-weather-widget" style="margin-right:10px;"></div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- /top navigation -->
+
+    <!-- page content -->
+    <div class="right_col" role="main">
+        <!-- point select -->
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel" style="">
+                    <div class="x_content">
+                        <br />
+                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" asp-controller="Analysis" asp-action="stationsAnalysis" method="POST">
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">植物种类<span class="required">*</span></label>
+                                <div class="col-md-3 col-sm-3 col-xs-12">
+                                    <select id="species" name="species" class="form-control">
+                                        <option value="垂柳">垂柳</option>
+                                        <option value="刺槐">刺槐</option>
+                                        <option value="侧柏">侧柏</option>
+                                        <option value="榆树">榆树</option>
+                                        <option value="紫薇">紫薇</option>
+                                    </select>
+                                </div>
+                                <label class="control-label col-md-1 col-sm-1 col-xs-12" for="last-name">年份<span class="required">*</span>
+                                </label>
+                                <div class="col-md-3 col-sm-3 col-xs-12">
+                                    <select id="year" name="year" class="form-control"></select>
+                                </div>
+                                <div class="col-md-2 col-sm-2 col-xs-12" style="text-align:center;">
+                                    <button id="submit" type="submit" value="Submit" class="btn btn-success">提交</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /point select -->
+        <div id="main" style="width: 100%;height:550px;"></div>
+    </div>    
+    <!-- /page content -->
+
+    <!-- footer content -->
+    <footer class="navbar-fixed-bottom">
+        <div class="pull-right">
+        plantCamera - OUC MIT Lab</a>
+        </div>
+        <div class="clearfix"></div>
+    </footer>
+    <!-- /footer content -->
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function() {
+            $('#species').change(function(){
+                $("#year").empty();
+                if($('#species').val() != null){
+                    var data = {
+                        "species" : $('#species').val()
+                    };
+                    $.ajax({
+                        type: "POST",
+                        url: "GetYearListAsync",
+                        contentType: "application/json",
+                        data:JSON.stringify(data),
+                        dataType: "text",
+                        success: function (result){
+                            yearList(result);
+                        }
+                    });
+                }
+            });
+            if('@Html.Raw(@ViewBag.Species)' == '')
+            {
+                initForm();
+            }else{
+                $('#species option[value=@Html.Raw(@ViewBag.Species)]').attr("selected","selected");
+                var result = '@Html.Raw(@ViewBag.yearSpecies)';
+                yearList(result);
+                $('#year option[value=@Html.Raw(@ViewBag.year)]').attr("selected","selected");
+            }
+            initEcharts();
+        });
+
+        function initForm()
+        {
+            $('#species option[value="垂柳"]').attr("selected","selected");
+            var result = '@Html.Raw(@ViewBag.yearSpecies)';
+            yearList(result);
+            $('#year option[value="2008"]').attr("selected","selected");
+        }
+
+        function yearList(result)
+        {
+            $.each(JSON.parse(result), function(Map, element){
+                if(element.city != null){
+                    var optionstr = "<option value='" + element.city + "'>" + element.city + "</option>";
+                    $("#year").append(optionstr);
+                }
+            });
+        }
+
+        function initEcharts()
+        {
+            var stations = '@Html.Raw(@ViewBag.stationsLocation)';
+            stations = JSON.parse(stations);
+            var dataall='@Html.Raw(@ViewBag.onlyPlant)';
+            dataall = JSON.parse(dataall);
+            var geoCoordMap=[];
+            var geoData = new Array();
+
+            for(var i = 0;i < stations.length;i ++) {
+                var position = [stations[i].坐标经度,stations[i].坐标纬度];
+                var title = stations[i].站点;
+                geoCoordMap[title] = position;
+            };
+
+            for(var n=0; n < dataall.length; n++)
+            {
+                var point = dataall[n].city;
+                var item = new dataItem(geoCoordMap[point][0],geoCoordMap[point][1],point,'');
+                geoData.push(item);
+            }
+
+            var myChart = echarts.init(document.getElementById('main'));
+            option = {
+                baseOption: {
+                    backgroundColor: '#000000',
+                    title: [{
+                        text: "1月1日",
+                        textAlign: 'center',
+                        left: '80%',
+                        top: '80%',
+                        textStyle: {
+                            fontSize: 70,
+                            color: 'rgba(255, 255, 255, 0.7)'
+                        }
+                    }, {
+                        text: '植物物候观测站点分布',
+                        subtext: 'data from National Earth System Science Data Sharing Infrastructure',
+                        sublink: 'http://www.geodata.cn/',
+                        left: 'center',
+                        top:10,
+                        textStyle: {
+                            color: '#444444'
+                        }
+                    }],
+                    tooltip: {
+                        trigger: 'item',
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        top: 'bottom',
+                        left: 'right',
+                        data:['观测站点'],
+                        textStyle: {
+                            color: '#fff'
+                        }
+                    },
+                    visualMap: [
+                    {
+                        left: 5,
+                        top: 10,
+                        dimension: 3,
+                        itemGap: 12,
+                        textStyle:{
+                            color:'#666',
+                        },
+                        categories: ['叶芽开始膨大期','叶芽开放期','开始展叶期','展叶盛期','花芽开始膨大期','花芽开放期','花序或花蕾出现期','开花始期','开花盛期','开花末期','第二次开花期','果实成熟期','果实脱落开始期','果实脱落末期','叶开始变色期','叶全部变色期','开始落叶期','落叶末期'],
+                        inRange: {
+                            symbolSize: 16,
+                            symbol: 'circle',
+                            color:['#B5CAA0','#86C166','#5DAC81','#227D51','#D7C4BB','#FEDFE1','#F4A7B9','#E16B8C','#CB1B45','#9F353A','#E83015','#F05E1C','#B35C37','#FB966E','#DDD23B','#F7D94C','#FFC408','#C99833'],
+                        },
+                        
+                        outOfRange: {
+                            color: '#999',
+                            symbolSize: 10,
+                            symbol: 'circle',
+                        }
+                    }],
+                    timeline: {
+                        axisType: 'category',
+                        orient: 'vertical',
+                        autoPlay: false,
+                        inverse: true,
+                        playInterval: 80,//表示播放的速度（跳动的间隔），单位毫秒（ms）
+                        right: 20,
+                        top: 20,
+                        bottom: 30,
+                        width: 70,
+                        height: null,
+                        label: {
+                            normal: {
+                                textStyle: {
+                                    color: '#999'
+                                }
+                            },
+                            emphasis: {
+                                textStyle: {
+                                    color: '#fff'
+                                }
+                            }
+                        },
+                        symbol: 'none',
+                        lineStyle: {
+                            color: '#888'
+                        },
+                        checkpointStyle: {
+                            color: '#bbb',
+                            borderColor: '#777',
+                            borderWidth: 2
+                        },
+                        controlStyle: {
+                            showNextBtn: false,
+                            showPrevBtn: false,
+                            normal: {
+                                color: '#666',
+                                borderColor: '#666'
+                            },
+                            emphasis: {
+                                color: '#aaa',
+                                borderColor: '#aaa'
+                            }
+                        },
+                        data:[]
+                    },          
+                    bmap: {
+                        center: [110, 35],
+                        zoom: 5,
+                        roam: true,
+                        mapStyle: {
+                            styleJson: [{
+                                'featureType': 'water',
+                                'elementType': 'all',
+                                'stylers': {
+                                    'color': '#d1d1d1'
+                                }
+                            }, {
+                                'featureType': 'land',
+                                'elementType': 'all',
+                                'stylers': {
+                                    'color': '#f3f3f3'
+                                }
+                            }, {
+                                'featureType': 'railway',
+                                'elementType': 'all',
+                                'stylers': {
+                                    'visibility': 'off'
+                                }
+                            }, {
+                                'featureType': 'highway',
+                                'elementType': 'all',
+                                'stylers': {
+                                    'color': '#fdfdfd'
+                                }
+                            }, {
+                                'featureType': 'highway',
+                                'elementType': 'labels',
+                                'stylers': {
+                                    'visibility': 'off'
+                                }
+                            }, {
+                                'featureType': 'arterial',
+                                'elementType': 'geometry',
+                                'stylers': {
+                                    'color': '#fefefe'
+                                }
+                            }, {
+                                'featureType': 'arterial',
+                                'elementType': 'geometry.fill',
+                                'stylers': {
+                                    'color': '#fefefe'
+                                }
+                            }, {
+                                'featureType': 'poi',
+                                'elementType': 'all',
+                                'stylers': {
+                                    'visibility': 'off'
+                                }
+                            }, {
+                                'featureType': 'green',
+                                'elementType': 'all',
+                                'stylers': {
+                                    'visibility': 'off'
+                                }
+                            }, {
+                                'featureType': 'subway',
+                                'elementType': 'all',
+                                'stylers': {
+                                    'visibility': 'off'
+                                }
+                            }, {
+                                'featureType': 'manmade',
+                                'elementType': 'all',
+                                'stylers': {
+                                    'color': '#d1d1d1'
+                                }
+                            }, {
+                                'featureType': 'local',
+                                'elementType': 'all',
+                                'stylers': {
+                                    'color': '#d1d1d1'
+                                }
+                            }, {
+                                'featureType': 'arterial',
+                                'elementType': 'labels',
+                                'stylers': {
+                                    'visibility': 'off'
+                                }
+                            }, {
+                                'featureType': 'boundary',
+                                'elementType': 'all',
+                                'stylers': {
+                                    'color': '#fefefe'
+                                }
+                            }, {
+                                'featureType': 'building',
+                                'elementType': 'all',
+                                'stylers': {
+                                    'color': '#d1d1d1'
+                                }
+                            }, {
+                                'featureType': 'label',
+                                'elementType': 'labels.text.fill',
+                                'stylers': {
+                                    'color': '#999999'
+                                }
+                            }]
+                        }
+                    },
+                    series: [
+                        {
+                            name: '观测站点',
+                            type: 'effectScatter',
+                            coordinateSystem: 'bmap',
+                            data: convertDataItem(geoData),
+                            symbolSize: 30,
+                            label: {
+                                normal: {
+                                    show: false
+                                },
+                                emphasis: {
+                                    show: false
+                                }
+                            },
+                            showEffectOn: 'render',
+                            rippleEffect: {
+                                brushType: 'stroke'
+                            },
+                            hoverAnimation: true,
+                            label: {
+                                normal: {
+                                    formatter: '{b}',
+                                    position: 'right',
+                                    show: true
+                                }
+                            },
+                            itemStyle: {
+                                normal: {
+                                    color: 'purple',
+                                    shadowBlur: 10,
+                                    shadowColor: '#333'
+                            },
+                                emphasis: {
+                                    borderColor: '#000000',
+                                    borderWidth: 1
+                                }
+                            }
+                        }
+                    ]
+                },
+                options:[]
+            };
+
+            var convertData = function(i,j){
+                var data = i + "月" + j + "日";
+                option.baseOption.timeline.data.push(data);
+
+                for(var n=0; n < dataall.length; n++)
+                {
+                    var point = dataall[n].city;
+                    var name = "";
+
+                    for(var item in dataall[n])
+                    {
+                        if(dataall[n][item] == data){
+                            switch (item)
+                            {
+                                case "datax1":
+                                name = "叶芽开始膨大期";
+                                break;
+                                case "datax2":
+                                name = "叶芽开放期";
+                                break;
+                                case "datax3":
+                                name = "花芽开始膨大期";
+                                break;
+                                case "datax4":
+                                name = "花芽开放期";
+                                break;
+                                case "datax5":
+                                name = "开始展叶期";
+                                break;
+                                case "datax6":
+                                name = "展叶盛期";
+                                break;
+                                case "datax7":
+                                name = "花序或花蕾出现期";
+                                break;
+                                case "datax8":
+                                name = "开花始期";
+                                break;
+                                case "datax9":
+                                name = "开花盛期";
+                                break;
+                                case "datax10":
+                                name = "开花末期";
+                                break;
+                                case "datax11":
+                                name = "第二次开花期";
+                                break;
+                                case "datax12":
+                                name = "果实成熟期";
+                                break;
+                                case "datax13":
+                                name = "果实脱落开始期";
+                                break;
+                                case "datax14":
+                                name = "果实脱落末期";
+                                break;
+                                case "datax15":
+                                name = "叶开始变色期";
+                                break;
+                                case "datax16":
+                                name = "叶全部变色期";
+                                break;
+                                case "datax17":
+                                name = "开始落叶期";
+                                break;
+                                case "datax18":
+                                name = "落叶末期";
+                                break;
+                                default:
+                                name = "";
+                            }
+                        }
+                    }
+
+                    for(var i = 0;i < geoData.length; i++)
+                    {
+                        if(name != ""){
+                            if(geoData[i].city == point){
+                                geoData[i].value = name;
+                            }
+                        }
+                    }
+                }
+
+                option.options.push({
+                    title: {
+                        show: true,
+                        'text':data
+                    },
+                    series: 
+                    {
+                        name: '观测站点',
+                        type: 'effectScatter',
+                        coordinateSystem: 'bmap',
+                        data: convertDataItem(geoData),
+                        symbolSize: 30,
+                        label: {
+                            normal: {
+                                show: false
+                            },
+                            emphasis: {
+                                show: false
+                            }
+                        },
+                        showEffectOn: 'render',
+                        rippleEffect: {
+                            brushType: 'stroke'
+                        },
+                        hoverAnimation: true,
+                        label: {
+                            normal: {
+                                formatter: '{b}',
+                                position: 'right',
+                                show: true
+                            }
+                        },
+                        itemStyle: {
+                            normal: {
+                                color: 'purple',
+                                shadowBlur: 10,
+                                shadowColor: '#333'
+                        },
+                            emphasis: {
+                                borderColor: '#000000',
+                                borderWidth: 1
+                            }
+                        }
+                    }
+                });
+            };
+
+            var year = Number($("#year").val());
+            for(var i=1; i<=12; i++)
+            {
+                if(i == 1 || i == 3 ||i == 5 ||i == 7 ||i == 8 ||i == 10 ||i == 12)
+                {
+                    for(var j=1; j<= 31; j++)
+                    {
+                        convertData(i,j);
+                    }
+                }else if(i == 2){
+                    if(isLeapYear(year)){
+                        for(var j=1; j<= 29; j++)
+                        {
+                            convertData(i,j);
+                        }
+                    }else{
+                        for(var j=1; j<= 28; j++)
+                        {
+                            convertData(i,j);
+                        }
+                    }
+                }else{
+                    for(var j=1; j<= 30; j++)
+                    {
+                        convertData(i,j);
+                    }
+                }
+            }
+
+            // var dataall='@Html.Raw(@ViewBag.onlyPlant)';
+            // dataall = JSON.parse(dataall);
+            // console.log(dataall);
+            // var shuxin=['叶芽开始膨大期','叶芽开放期','花芽开始膨大期','花芽开放期','开始展叶期','展叶盛期','花序或花蕾出现期','开花始期','开花盛期','开花末期','第二次开花期','果实成熟期','果实脱落开始期','果实脱落末期','叶开始变色期','叶全部变色期','开始落叶期','落叶末期'];
+            // var dataall1=new Array();
+            // for(var k=0; k<5; k++){
+            //     dataall1[k]=new Array();
+            //     for(var j=0; j<1; j++){ 
+            //         dataall1[k][j]="";
+            //     }
+            // };
+            // for(var i=0; i<5 ;i++){
+            //     dataall1[i].push(dataall[i].datax1);
+            //     dataall1[i].push(dataall[i].datax2);
+            //     dataall1[i].push(dataall[i].datax3);
+            //     dataall1[i].push(dataall[i].datax4);
+            //     dataall1[i].push(dataall[i].datax5);
+            //     dataall1[i].push(dataall[i].datax6);
+            //     dataall1[i].push(dataall[i].datax7);
+            //     dataall1[i].push(dataall[i].datax8);
+            //     dataall1[i].push(dataall[i].datax9);
+            //     dataall1[i].push(dataall[i].datax10);
+            //     dataall1[i].push(dataall[i].datax11);
+            //     dataall1[i].push(dataall[i].datax12);
+            //     dataall1[i].push(dataall[i].datax13);
+            //     dataall1[i].push(dataall[i].datax14);
+            //     dataall1[i].push(dataall[i].datax15);
+            //     dataall1[i].push(dataall[i].datax16);
+            //     dataall1[i].push(dataall[i].datax17);
+            //     dataall1[i].push(dataall[i].datax18);     
+            // };
+        
+            // var mounth1=0;
+            // var mounth2=0;
+            // var mounth3=0;
+            // var mounth4=0;
+            // var mounth5=0;
+
+            // for(var i=1; i<=12; i++){
+            //     for(var j=1; j<= 31; j++){
+            //         var data = i + "月" + j + "日";
+            //         option.baseOption.timeline.data.push(data);
+                    
+            //         for(var k=0;k<18;k++){
+            //             if(dataall1[0][k]==data){ mounth1++};
+            //             if(dataall1[1][k]==data){ mounth2++};              
+            //             if(dataall1[2][k]==data){ mounth3++};               
+            //             if(dataall1[3][k]==data){ mounth4++};              
+            //             if(dataall1[4][k]==data){ mounth5++};
+            //         };
+                            
+            //         var aa=shuxin[mounth1];
+            //         var bb=shuxin[mounth2];
+            //         var cc=shuxin[mounth3];
+            //         var dd=shuxin[mounth4];
+            //         var ee=shuxin[mounth5];
+
+            //           
+            //     }
+            // };
+            myChart.setOption(option);
+        }
+
+        function dataItem(lonv, latv, cityv, valuev)
+        {
+            this.lon = lonv;
+            this.lat = latv;
+            this.city = cityv;
+            this.value = valuev;
+        }
+
+        function convertDataItem(array)
+        {
+            var dataarray = [];
+            for(var i = 0;i < array.length;i ++)
+            {
+                var lon = array[i].lon;
+                var lat = array[i].lat;
+                var city = array[i].city;
+                var value = array[i].value;
+                var data = [lon,lat,city,value];
+                dataarray.push(data);
+            }
+            return dataarray;
+        }
+
+        function isLeapYear(year) {
+            var cond1 = year % 4 == 0;
+            var cond2 = year % 100 != 0;
+            var cond3 = year % 400 ==0;
+            var cond = cond1 && cond2 || cond3;
+            if(cond) {
+                //console.log(year + "是闰年");
+                return true;
+            } else {
+                //console.log(year + "不是闰年");
+                return false;
+            }
+        }
+    </script>
+}

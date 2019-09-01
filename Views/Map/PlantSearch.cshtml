@@ -1,0 +1,499 @@
+<link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
+
+<div class="main_container">
+    <div class="col-md-3 left_col">
+        <div class="left_col scroll-view">
+        <div class="navbar nav_title" style="border: 0;">
+            <a asp-controller="Home" asp-action="Index" class="site_title"><i class="fa fa-leaf"></i> <span>Plant Camera</span></a>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <!-- menu profile quick info -->
+        <div class="profile clearfix">
+            <div class="profile_pic">
+            <img src="~/images/user.png" alt="..." class="img-circle profile_img">
+            </div>
+            <div class="profile_info">
+            <span>欢迎您，</span>
+            <h2>@ViewData["UserName"]</h2>
+            </div>
+        </div>
+        <!-- /menu profile quick info -->
+
+        <br />
+
+        <!-- sidebar menu -->
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div class="menu_section">
+            <h3>主要功能</h3>
+            <ul class="nav side-menu">
+                <li><a asp-controller="Home" asp-action="Index"><i class="fa fa-desktop"></i> 主页 </a>
+                </li>
+                <li><a><i class="fa fa-camera"></i> 相册管理 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a asp-controller="Camera" asp-action="Album">我的相册</a></li>
+                    <li><a asp-controller="Camera" asp-action="Upload">图片上传</a></li>
+                </ul>
+                </li>
+                <li class="active"><a><i class="fa fa-map"></i> 地图显示 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a asp-controller="Map" asp-action="MyPhotoMap">个人足迹</a></li>
+                    <li><a asp-controller="Map" asp-action="PlantMap">植物地图</a></li>
+                    <li><a asp-controller="Map" asp-action="PlantSearch">植物检索</a></li>
+                </ul>
+                </li>
+                <li><a><i class="fa fa-bar-chart-o"></i> 分析专题 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a asp-controller="Analysis" asp-action="Topic">分析专题</a></li>
+                    <li><a asp-controller="Analysis" asp-action="PointsMap">观测站点</a></li>
+                    <li><a asp-controller="Analysis" asp-action="stationsAnalysis">站点分析</a></li>
+                </ul>
+                </li>
+                <li><a><i class="fa fa-cogs"></i> 个人设置 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a asp-controller="Manage" asp-action="ChangePassword">修改密码</a></li>
+                    <li><a asp-controller="Manage" asp-action="ChangeProfile">修改头像</a></li>
+                    <li><a asp-controller="Manage" asp-action="ConfirmEmail">邮箱绑定</a></li>
+                </ul>
+                </li>
+            </ul>
+            </div>
+            <div class="menu_section">
+            <h3>其他</h3>
+            <ul class="nav side-menu">
+                <li><a><i class="fa fa-bug"></i> 开发者 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a asp-controller="Developer" asp-action="Contact">联系我们</a></li>
+                </ul>
+                </li>   
+                <li><a><i class="fa fa-tasks"></i> 高级功能 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a asp-controller="Developer" asp-action="DataReview">数据审查</a></li>
+                    <li><a asp-controller="Developer" asp-action="UsersManage">用户管理</a></li>
+                    <li><a asp-controller="Developer" asp-action="DataOutput">数据导出</a></li>
+                </ul>
+                </li>           
+                <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> 拓展功能 <span class="label label-success pull-right">建设中</span></a></li>
+            </ul>
+            </div>
+
+        </div>
+        <!-- /sidebar menu -->
+
+        <!-- /menu footer buttons -->
+        <div class="sidebar-footer hidden-small">
+            <a data-toggle="tooltip" data-placement="top" title="Settings">
+            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="Lock">
+            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="注销" asp-controller="Account" asp-action="Login">
+            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+            </a>
+        </div>
+        <!-- /menu footer buttons -->
+        </div>
+    </div>
+
+    <!-- top navigation -->
+    <div class="top_nav">
+        <div class="nav_menu">
+            <nav>
+                <div class="nav toggle">
+                    <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="">
+                        <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <img src="~/images/user.png" alt="">@ViewData["UserName"]
+                        <span class="fa fa-angle-down"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-usermenu pull-right">
+                        <li>
+                            <a href="javascript:;">
+                            <span class="badge bg-red pull-right">50%</span>
+                            <span>帮助</span>
+                            </a>
+                        </li>
+                        <li><a asp-controller="Account" asp-action="Login"><i class="fa fa-sign-out pull-right"></i>注销</a></li>
+                        </ul>
+                    </li>
+
+                    <li role="presentation" class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-envelope-o"></i>
+                        <span class="badge bg-green">1</span>
+                        </a>
+                        <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                        <li>
+                            <a>
+                            <span class="image"><img src="~/images/user.png" alt="Profile Image" /></span>
+                            <span>
+                                <span>管理员</span>
+                                <span class="time">3分钟前</span>
+                            </span>
+                            <span class="message">
+                                您有新的消息，请及时查看
+                            </span>
+                            </a>
+                        </li>
+                        <li>
+                            <div class="text-center">
+                            <a>
+                                <strong>查看所有消息</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                            </div>
+                        </li>
+                        </ul>
+                    </li>
+                    <li style="padding-top:14px;">
+                        <div id="tp-weather-widget" style="margin-right:10px;"></div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- /top navigation -->
+
+    <!-- page content -->
+    <div class="right_col" role="main">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel" style="">
+                    <div class="x_content">
+                        <br />
+                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" asp-controller="Map" asp-action="PlantSearch" method="POST">
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">植物名称<span class="required">*</span></label>
+                                <div class="col-md-8 col-sm-8 col-xs-12">
+                                    <input id="plant" name="plant" class="form-control"/>
+                                </div>
+                                <div class="col-md-2 col-sm-2 col-xs-12" style="text-align:center;">
+                                    <button id="submit" type="submit" value="Submit" class="btn btn-success">提交</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div id="map" class="map-container"></div>
+            </div>
+        </div>
+        <!-- <div id="ok">
+            <b>Field:&nbsp</b><select id="filter-field">
+                <option value="plant">植物种类</option>
+                <option value="PhotoPhenology">侯应现象</option>
+                <option value="PhotoTakeTime">拍摄时间</option>
+                </select>&nbsp
+            <b>Type:&nbsp</b><select id="filter-type" >
+                <option value="=">=</option>
+                <option value="<"><</option>
+                <option value=">">></option>
+                <option value="like">like</option>
+                </select>&nbsp
+            <b>Value:&nbsp</b><input id="filter-value" type="text" placeholder="请输入值"/>&nbsp
+            <button id="submit">筛选</button>
+            <button id="filter-clear">清除筛选</button>
+        </div>
+        <div id="info">
+        
+        </div> -->
+    </div>
+        
+    <!-- /page content -->
+
+    <!-- footer content -->
+    <footer class="navbar-fixed-bottom">
+        <div class="pull-right">
+        plantCamera - OUC MIT Lab</a>
+        </div>
+        <div class="clearfix"></div>
+    </footer>
+    <!-- /footer content -->
+   
+
+    <!--<form id="test-form" class="white-popup-block mfp-hide" asp-controller="Camera" asp-action="Album" method="POST">
+        <div class="x_title">
+            <h2 style="color:#1ABB9C;"><i class="fa fa-plus"></i> 添加相册</h2>
+            <div class="clearfix"></div>
+        </div>
+        <fieldset>
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">相册名称</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                    <input type="text" class="form-control" name="name">
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">相册简介</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                    <textarea class="form-control" rows="6" name="text"></textarea>
+                </div>
+            </div>
+        </fieldset>
+        <div class="form-group">
+            <div style="text-align:center;margin-top:20px;">
+                <button id="album-reset" type="reset" class="btn btn-round btn-primary">重置</button>
+                <button id="album-submit" type="submit" class="btn btn-round btn-success">提交</button>
+            </div>
+        </div>
+    </form>-->
+</div>
+
+<style type="text/css">
+    .amap-marker .marker-route {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        color:whitesmoke;
+        background:url(/Users/fanshun/Desktop/plantCamera/wwwroot/images.png) no-repeat;
+        cursor: pointer;
+        border:2px solid;
+        border-radius: 8px; 
+        box-shadow: rgb(163, 163, 163) 0px 0px 2px
+    }
+     .map-container{
+        width: 100%;
+        height: 550px;
+        float:left;
+
+    }
+    .input-group-btn{
+       width:20px;
+       height:40px;
+    }
+    #info{
+       width:550px;
+       height:auto;
+       margin-top: 10px;
+       margin-left: 610px;
+       border-color:rgb(204, 202, 202);
+       text-align:center;
+       background-color: rgb(145, 145, 145);
+    }
+    #ok{
+        margin-top: 70px;
+        margin-left: 630px;
+    }
+   
+       
+ 
+ </style>
+
+
+
+<script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="https://webapi.amap.com/maps?v=1.4.1&key=7099198185f677aab3fa216778ca6a96&plugin=AMap.MarkerClusterer"></script>
+<script type="text/javascript">  
+    var cluster,cluster2, markers = [],markers2 = [];
+    var _renderCluserMarker,_renderCluserMarker2;
+    /*------------------------------------------加载地图————————————————————————————————————————————————*/
+    var map = new AMap.Map("map", {
+        resizeEnable: true,
+        center:[120.38, 36.18],
+        zoom: 11
+    });
+    map.setMapStyle('amap://styles/whitesmoke');
+    
+     /*----------------------------------------添加marker————————————————————————————————————————————————*/
+    var points = @Html.Raw(@ViewBag.mapAllMakers);
+    /*----------------------------------------坐标转换————————————————————————————————————————————————*/
+    var GPS = {  
+        PI : 3.14159265358979324,  
+        x_pi : 3.14159265358979324 * 3000.0 / 180.0,  
+        delta : function (lat, lon) {  
+            var a = 6378245.0; //  a: 卫星椭球坐标投影到平面地图坐标系的投影因子。  
+            var ee = 0.00669342162296594323; //  ee: 椭球的偏心率。  
+            var dLat = this.transformLat(lon - 105.0, lat - 35.0);  
+            var dLon = this.transformLon(lon - 105.0, lat - 35.0);  
+            var radLat = lat / 180.0 * this.PI;  
+            var magic = Math.sin(radLat);  
+            magic = 1 - ee * magic * magic;  
+            var sqrtMagic = Math.sqrt(magic);  
+            dLat = (dLat * 180.0) / ((a * (1 - ee)) / (magic * sqrtMagic) * this.PI);  
+            dLon = (dLon * 180.0) / (a / sqrtMagic * Math.cos(radLat) * this.PI);  
+            return {'lat': dLat, 'lon': dLon};  
+        },  
+          //WGS-84 to GCJ-02  
+        gcj_encrypt : function (wgsLat, wgsLon) {  
+            if (this.outOfChina(wgsLat, wgsLon))  
+                return {'lat': wgsLat, 'lon': wgsLon};  
+    
+            var d = this.delta(wgsLat, wgsLon);  
+            return {'lat' : wgsLat + d.lat,'lon' : wgsLon + d.lon};  
+        },  
+        outOfChina : function (lat, lon) {  
+            if (lon < 72.004 || lon > 137.8347)  
+                return true;  
+            if (lat < 0.8293 || lat > 55.8271)  
+                return true;  
+            return false;  
+       },  
+        transformLat : function (x, y) {  
+            var ret = -100.0 + 2.0 * x + 3.0 * y + 0.2 * y * y + 0.1 * x * y + 0.2 * Math.sqrt(Math.abs(x));  
+            ret += (20.0 * Math.sin(6.0 * x * this.PI) + 20.0 * Math.sin(2.0 * x * this.PI)) * 2.0 / 3.0;  
+            ret += (20.0 * Math.sin(y * this.PI) + 40.0 * Math.sin(y / 3.0 * this.PI)) * 2.0 / 3.0;  
+            ret += (160.0 * Math.sin(y / 12.0 * this.PI) + 320 * Math.sin(y * this.PI / 30.0)) * 2.0 / 3.0;  
+            return ret;  
+        },  
+        transformLon : function (x, y) {  
+            var ret = 300.0 + x + 2.0 * y + 0.1 * x * x + 0.1 * x * y + 0.1 * Math.sqrt(Math.abs(x));  
+            ret += (20.0 * Math.sin(6.0 * x * this.PI) + 20.0 * Math.sin(2.0 * x * this.PI)) * 2.0 / 3.0;  
+            ret += (20.0 * Math.sin(x * this.PI) + 40.0 * Math.sin(x / 3.0 * this.PI)) * 2.0 / 3.0;  
+            ret += (150.0 * Math.sin(x / 12.0 * this.PI) + 300.0 * Math.sin(x / 30.0 * this.PI)) * 2.0 / 3.0;  
+            return ret;  
+        }  
+    };  
+    for(var i=0;i<points.length;i+=1) {
+        var a=GPS.gcj_encrypt(points[i].lnglat[1],points[i].lnglat[0]).lat;
+        var b=GPS.gcj_encrypt(points[i].lnglat[1],points[i].lnglat[0]).lon;
+        points[i].lnglat[1]=a;
+        points[i].lnglat[0]=b;
+
+    };
+   
+     /*----------------------------------------添加marker————————————————————————————————————————————————*/
+    addMarker();
+    function addMarker() {
+        map.clearMap();
+        for (var i=0;i<points.length;i+=1) {
+            
+            
+            marker = new AMap.Marker({
+                position:points[i]['lnglat'],//基点的位置      
+                //content: '<div class="marker-route marker-marker-bus-from"></div>',//自定义点标记覆盖物内容
+                //offset: new AMap.Pixel(-15,-15),//相对基点的偏移量
+                icon: new AMap.Icon({            
+                    size: new AMap.Size(45, 45),  //图标大小
+                    image: points[i]['image'],
+                    imageOffset: new AMap.Pixel(0,0),
+                    imageSize: new AMap.Size(45, 45)
+                }),
+                shadow: new AMap.Icon({            
+                    size: new AMap.Size(55, 55),  //图标大小
+                    image: "https://www.cponapp.cn/images/dw2.png",
+                    imageOffset: new AMap.Pixel(-5, -1),
+                    imageSize: new AMap.Size(54,54)
+                }),                    
+            });
+            marker2 = new AMap.Marker({
+                position:points[i]['lnglat'],//基点的位置      
+                //content: '<div class="marker-route marker-marker-bus-from"></div>',//自定义点标记覆盖物内容
+                //offset: new AMap.Pixel(-15,-15),//相对基点的偏移量
+                shadow: new AMap.Icon({            
+                    size: new AMap.Size(55, 55),  //图标大小
+                    image: points[i]['image'],
+                    imageOffset: new AMap.Pixel(-5, -1),
+                    imageSize: new AMap.Size(54,54)
+                }),            
+                visible:false                 
+            });
+            markers2.push(marker2);
+            (function(index){
+                AMap.event.addListener(marker,'click',function(e) {
+                    var info = [];
+                    var icon1 = new AMap.Icon({            
+                        size: new AMap.Size(55, 55),  //图标大小
+                        image: "http://222.195.148.191:808/image/dw1.png",
+                        imageOffset: new AMap.Pixel(-5, -1),
+                        imageSize: new AMap.Size(54,54),
+                    });
+                    var icon2 = new AMap.Icon({            
+                        size: new AMap.Size(55, 55),  //图标大小
+                        image: "https://www.cponapp.cn/images/dw2.png",
+                        imageOffset: new AMap.Pixel(-5, -1),
+                        imageSize: new AMap.Size(54,54),
+                    });
+                    e.target.setShadow(icon1);
+                   
+                    //info.push("<div style=\"padding:0px 0px 0px 4px;font-size: 10px;\"><font color=green>植物品种： </font>" + points[index].plant);
+                    //info.push("<br><div><font color=green>经度： </font>"+ points[index].lnglat[0]+ "<br><br><font color=green>纬度：</font>"+ points[index].lnglat[1]+ "<br><br><font color=green>候应现象：</font>"+points[index].PhotoPhenology+"<br><br><font color=green>拍摄时间：</font>"+points[index].PhotoTakeTime+"<br><br><font color=green>拍摄天气：</font>"+points[index].Temperature1+"℃"+" "+points[index].Weather1+"</div>");
+                    info.push("<div style=\"padding:0px 0px 0px 4px;font-size: 10px;\"><font color=green>植物品种： </font>" + "垂柳");
+                    info.push("<br><div><font color=green>经度： </font>"+ points[index].lnglat[0]+ "<br><br><font color=green>纬度：</font>"+ points[index].lnglat[1]+ "<br><br><font color=green>候应现象：</font>"+"展叶盛期"+"<br><br><font color=green>拍摄时间：</font>"+"2017-04-11"+"<br><br><font color=green>拍摄天气：</font>"+"15"+"℃"+" "+"多云转晴"+"</div>");
+                    
+                    infoWindow = new AMap.InfoWindow({
+                        offset : new AMap.Pixel(30, -20),
+                        autoMove : true, // 设置自动调整信息窗口至视野范围
+                        content : info.join("<br/>")// 使用默认信息窗体框样式，显示信息内容
+                        });
+                    if(infoWindow.getIsOpen()){
+                        e.target.setShadow(icon2)
+                    }else{
+                        e.target.setShadow(icon1)
+                    }; 
+                    infoWindow.open(map, e.target.getPosition());
+                    
+                });
+                markers.push(marker);
+            })(i);
+        };
+        
+    }
+   
+    var count  = markers.length;
+    _renderCluserMarker= function (context) {
+        context.marker.setIcon( context.markers[1].getIcon());
+        context.marker.setShadow(
+            new AMap.Icon({            
+                size: new AMap.Size(55, 55),  //图标大小
+                image: "https://www.cponapp.cn/images/dw2.png",
+                imageOffset: new AMap.Pixel(-5, -1),
+                imageSize: new AMap.Size(54,54),
+                })
+        );
+
+        context.marker.setOffset(new AMap.Pixel(-20,-20));
+        //context.marker.setContent(div);
+        
+     }
+     _renderCluserMarker2= function (context) {
+         var factor = Math.pow(context.count/count,1/18)//底数，几次方
+        var div = document.createElement('div');
+        var bgColor = 'hsla(0,70%,60%,0.7)';//hsla(色调，饱和度，亮度，透明度)
+        var fontColor = 'hsla(1,100%,100%,1)';
+        var borderColor = 'hsla(1,100%,40%,1)';
+        var shadowColor = 'hsla(1,100%,50%,1)';
+        div.style.backgroundColor = bgColor;
+        var size = 25;
+        div.style.width = div.style.height = size+'px';
+        div.style.borderRadius = 8 + 'px';
+        div.style.boxShadow = '0 0 1px '+ shadowColor;
+        div.innerHTML = context.count;
+        div.style.lineHeight = size+'px';
+        div.style.color = fontColor;
+        div.style.fontSize = '14px';
+        div.style.textAlign = 'center';
+        context.marker.setOffset(new AMap.Pixel(-30,-30));
+        context.marker.setContent(div);
+     }
+
+ /*----------------------------------------添加聚类————————————————————————————————————————————————*/
+    addCluster();
+    function addCluster() {
+        cluster = new AMap.MarkerClusterer(map,markers,{
+            gridSize:80,//聚合计算时,网格的像素大小
+            renderCluserMarker:_renderCluserMarker,
+            zoomOnClick:true,
+            minClusterSize:2
+        });
+        cluster2 = new AMap.MarkerClusterer(map,markers2,{
+            gridSize:80,//聚合计算时,网格的像素大小
+            renderCluserMarker:_renderCluserMarker2,
+            zoomOnClick:true,
+            minClusterSize:2
+        })
+
+        //cluster.addMarker(markers1)
+    }
+    
+    
+</script>

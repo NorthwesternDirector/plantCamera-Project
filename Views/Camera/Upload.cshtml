@@ -1,0 +1,458 @@
+@using System.Collections.Generic
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Http.Authentication
+@model plantCamera.Models.DataViewModels.PhotoInformation
+
+<div class="main_container">
+    <div class="col-md-3 left_col">
+        <div class="left_col scroll-view">
+        <div class="navbar nav_title" style="border: 0;">
+            <a asp-controller="Home" asp-action="Index" class="site_title"><i class="fa fa-leaf"></i> <span>Plant Camera</span></a>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <!-- menu profile quick info -->
+        <div class="profile clearfix">
+            <div class="profile_pic">
+            <img src="~/images/user.png" alt="..." class="img-circle profile_img">
+            </div>
+            <div class="profile_info">
+            <span>欢迎您，</span>
+            <h2>@ViewData["UserName"]</h2>
+            </div>
+        </div>
+        <!-- /menu profile quick info -->
+
+        <br />
+
+        <!-- sidebar menu -->
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div class="menu_section">
+            <h3>主要功能</h3>
+            <ul class="nav side-menu">
+                <li><a asp-controller="Home" asp-action="Index"><i class="fa fa-desktop"></i> 主页 </a>
+                </li>
+                <li class="active"><a><i class="fa fa-camera"></i> 相册管理 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a asp-controller="Camera" asp-action="Album">我的相册</a></li>
+                    <li><a asp-controller="Camera" asp-action="Upload">图片上传</a></li>
+                </ul>
+                </li>
+                <li><a><i class="fa fa-map"></i> 地图显示 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a asp-controller="Map" asp-action="MyPhotoMap">个人足迹</a></li>
+                    <li><a asp-controller="Map" asp-action="PlantMap">植物地图</a></li>
+                    <li><a asp-controller="Map" asp-action="PlantSearch">植物检索</a></li>
+                </ul>
+                </li>
+                <li><a><i class="fa fa-bar-chart-o"></i> 分析专题 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a asp-controller="Analysis" asp-action="Topic">分析专题</a></li>
+                    <li><a asp-controller="Analysis" asp-action="PointsMap">观测站点</a></li>
+                    <li><a asp-controller="Analysis" asp-action="stationsAnalysis">站点分析</a></li>
+                </ul>
+                </li>
+                <li><a><i class="fa fa-cogs"></i> 个人设置 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a asp-controller="Manage" asp-action="ChangePassword">修改密码</a></li>
+                    <li><a asp-controller="Manage" asp-action="ChangeProfile">修改头像</a></li>
+                    <li><a asp-controller="Manage" asp-action="ConfirmEmail">邮箱绑定</a></li>
+                </ul>
+                </li>
+            </ul>
+            </div>
+            <div class="menu_section">
+            <h3>其他</h3>
+            <ul class="nav side-menu">
+                <li><a><i class="fa fa-bug"></i> 开发者 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a asp-controller="Developer" asp-action="Contact">联系我们</a></li>
+                </ul>
+                </li>       
+                <li><a><i class="fa fa-tasks"></i> 高级功能 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a asp-controller="Developer" asp-action="DataReview">数据审查</a></li>
+                    <li><a asp-controller="Developer" asp-action="UsersManage">用户管理</a></li>
+                    <li><a asp-controller="Developer" asp-action="DataOutput">数据导出</a></li>
+                </ul>
+                </li>       
+                <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> 拓展功能 <span class="label label-success pull-right">建设中</span></a></li>
+            </ul>
+            </div>
+
+        </div>
+        <!-- /sidebar menu -->
+
+        <!-- /menu footer buttons -->
+        <div class="sidebar-footer hidden-small">
+            <a data-toggle="tooltip" data-placement="top" title="Settings">
+            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="Lock">
+            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="注销" asp-controller="Account" asp-action="Login">
+            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+            </a>
+        </div>
+        <!-- /menu footer buttons -->
+        </div>
+    </div>
+
+    <!-- top navigation -->
+    <div class="top_nav">
+        <div class="nav_menu">
+            <nav>
+                <div class="nav toggle">
+                    <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="">
+                        <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <img src="~/images/user.png" alt="">@ViewData["UserName"]
+                        <span class="fa fa-angle-down"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-usermenu pull-right">
+                        <li>
+                            <a href="javascript:;">
+                            <span class="badge bg-red pull-right">50%</span>
+                            <span>帮助</span>
+                            </a>
+                        </li>
+                        <li><a asp-controller="Account" asp-action="Login"><i class="fa fa-sign-out pull-right"></i>注销</a></li>
+                        </ul>
+                    </li>
+
+                    <li role="presentation" class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-envelope-o"></i>
+                        <span class="badge bg-green">1</span>
+                        </a>
+                        <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                        <li>
+                            <a>
+                            <span class="image"><img src="~/images/user.png" alt="Profile Image" /></span>
+                            <span>
+                                <span>管理员</span>
+                                <span class="time">3分钟前</span>
+                            </span>
+                            <span class="message">
+                                您有新的消息，请及时查看
+                            </span>
+                            </a>
+                        </li>
+                        <li>
+                            <div class="text-center">
+                            <a>
+                                <strong>查看所有消息</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                            </div>
+                        </li>
+                        </ul>
+                    </li>
+                    <li style="padding-top:14px;">
+                        <div id="tp-weather-widget" style="margin-right:10px;"></div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- /top navigation -->
+
+    <!-- page content -->
+    <div class="right_col" role="main">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel" style="">
+                    <div class="x_title">
+                        <h2>上传植物图片<small>（必须是手机或相机拍摄保留有图像位置信息的<strong>原图</strong>才可以上传）</small></h2>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="x_content">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-4 col-xs-12 col-md-offset-1 col-sm-offset-1">
+                                <div style="text-align:center">
+                                    <h2>上传图片</h2>
+                                </div>
+                                <br />
+                                <input id="input-photo" type="file" class="file" name="uploadfiles" data-preview-file-type="image" />
+                                <br />
+                                <div style="text-align:center">
+                                    <h2>植物生长简况</h2>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">文本框</label>
+                                    <textarea id="planttext1" class="form-control" rows="8"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div style="text-align:center">
+                                    <h2>植物物候信息</h2>
+                                </div>
+                                <br />
+                                <form id="photoinfo" asp-controller="Camera" asp-action="Upload" method="post" class="form-horizontal form-label-left" onreset="onReset()">
+                                    <div class="form-group">
+                                        <label asp-for="AlbumName" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <select id="AlbumName1" asp-for="AlbumName" class="form-control">
+                                                <option>默认相册</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="PhotoTakeTime" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" asp-for="PhotoTakeTime" class="form-control" readonly="readonly">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="PhotoLongitude" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" asp-for="PhotoLongitude" class="form-control" readonly="readonly">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="PhotoLatitude" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" asp-for="PhotoLatitude" class="form-control" readonly="readonly">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="PhotoHeight" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" asp-for="PhotoHeight" class="form-control" placeholder="米（m，填写数值即可）">
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="form-group">
+                                        <label asp-for="PhotoPlant" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" asp-for="PhotoPlant" class="form-control" placeholder="植物品种">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Temperature" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" asp-for="Temperature" class="form-control" placeholder="摄氏度（℃，填写数值即可）">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Weather" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" asp-for="Weather" class="form-control" placeholder="天气现象">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="PhotoPhenology" class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <select id="photoPhenology1" class="select2_group form-control" onchange="onChange()">
+                                                <optgroup label="类别：乔木和灌木">
+                                                    <option selected = "selected">芽膨大开始期</option>
+                                                    <option>芽开放期</option>
+                                                    <option>开始展叶期</option>
+                                                    <option>展叶盛期</option>
+                                                    <option>花蕾或花序出现期</option>
+                                                    <option>开花始期</option>
+                                                    <option>开花盛期</option>
+                                                    <option>开花末期</option>
+                                                    <option>第二次开花期</option>
+                                                    <option>一年三次开花期</option>
+                                                    <option>果子和果实成熟期</option>
+                                                    <option>果实和种子脱落期</option>
+                                                    <option>新梢开始生长期</option>
+                                                    <option>新梢停止生长期</option>
+                                                    <option>叶秋季变色期</option>
+                                                    <option>落叶期</option>
+                                                </optgroup>
+                                                <optgroup label="类别：草本植物">
+                                                    <option>萌动期</option>
+                                                    <option>展叶期</option>
+                                                    <option>花蕾或花序出现期</option>
+                                                    <option>开花期</option>
+                                                    <option>果实或种子成熟</option>
+                                                    <option>果实脱落开始期</option>
+                                                    <option>种子散布期</option>
+                                                    <option>第二次开花</option>
+                                                    <option>黄枯期</option>
+                                                </optgroup>
+                                                <optgroup label="类别：其他">
+                                                    <option>其他</option>
+                                                </optgroup>
+                                            </select>
+                                            <br />
+                                            <input id="photoPhenology2" asp-for="PhotoPhenology" type="hidden" class="form-control" placeholder="其他候应现象"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-offset-3 col-md-9">
+                                            <div class="checkbox">
+                                                <label asp-for="Cover">
+                                                    <input asp-for="Cover"/>
+                                                    @Html.DisplayNameFor(m => m.Cover)
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input asp-for="PlantText" type="hidden" class="form-control"/>
+                                    <input asp-for="PhotoLink" type="hidden" id="input-photo-link" class="form-control"/>
+                                    <div class="form-group">
+                                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-6 col-sm-offset-6">
+                                            <button id="photoinfo-reset" type="reset" class="btn btn-round btn-primary">重置</button>
+                                            <button id="photoinfo-submit" type="submit" class="btn btn-round btn-success">提交</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-12"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div hidden>@Html.ValidationMessage("uploadResult")</div>
+    </div>
+    <!-- /page content -->
+
+    <!-- footer content -->
+    <footer class="navbar-fixed-bottom">
+        <div class="pull-right">
+        plantCamera - OUC MIT Lab</a>
+        </div>
+        <div class="clearfix"></div>
+    </footer>
+    <!-- /footer content -->
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function() {
+            $.ajax({
+                type: "GET",
+                url: "ReadAlbum",
+                contentType: "application/json",
+                data: "",
+                dataType: "json",
+                success: function (data){
+                    AlbumList(data)
+                }
+            });
+
+            $("#photoinfo").submit(function(e){
+                var plantText1 = $("#planttext1").val();
+                if(plantText1 != null){
+                    $("#PlantText").val(plantText1);
+                }
+                if($("#PhotoTakeTime").val() == "" || $("#PhotoLongitude").val() == "" || $("#PhotoLatitude").val() == ""){
+                    swal({
+                        text: "图片非拍摄原图或信息不全，无法上传",
+                        type: "error",
+                        confirmButtonText: "确定",
+                        confirmButtonColor: "#1ABB9C"
+                    });
+                    e.preventDefault();
+                }
+                if($("#PhotoPlant").val() == "" || $("#Temperature").val() == "" || $("#Weather").val() == "" || $("#photoPhenology2").val() == ""){
+                    swal({
+                        text: "图片信息不全，请补充",
+                        type: "error",
+                        confirmButtonText: "确定",
+                        confirmButtonColor: "#1ABB9C"
+                    });
+                    e.preventDefault();
+                }
+                if($("#PhotoLink").val() == ""){
+                    swal({
+                        text: "图片上传失败，请重新上传",
+                        type: "error",
+                        confirmButtonText: "确定",
+                        confirmButtonColor: "#1ABB9C"
+                    });
+                    e.preventDefault();
+                }
+            });
+
+            //验证信息
+            var validation = $(".field-validation-error").text();
+            if(validation == "上传成功"){
+                swal({
+                    text: validation,
+                    type: "success",
+                    confirmButtonText: "确定",
+                    confirmButtonColor: "#1ABB9C"
+                });
+                $("#PhotoTakeTime").val("");
+                $("#PhotoLongitude").val("");
+                $("#PhotoLatitude").val("");
+                $("#PhotoHeight").val("");
+                $("#PhotoPlant").val("");
+                $("#Temperature").val("");
+                $("#Weather").val("");
+                $("#photoPhenology2").val("");
+                $("#PhotoLink").val("");
+                $("#Cover").removeAttr("checked");
+            }else if(validation == "上传失败，数据库连接错误"){
+                swal({
+                    text: validation,
+                    type: "error",
+                    confirmButtonText: "确定",
+                    confirmButtonColor: "#1ABB9C"
+                });
+                $("#PhotoTakeTime").val("");
+                $("#PhotoLongitude").val("");
+                $("#PhotoLatitude").val("");
+                $("#PhotoHeight").val("");
+                $("#PhotoPlant").val("");
+                $("#Temperature").val("");
+                $("#Weather").val("");
+                $("#photoPhenology2").val("");
+                $("#PhotoLink").val("");
+                $("#Cover").removeAttr("checked");
+            }else if(validation == "上传失败，图片信息格式有误"){
+                swal({
+                    text: validation,
+                    type: "error",
+                    confirmButtonText: "确定",
+                    confirmButtonColor: "#1ABB9C"
+                });
+                $("#PhotoTakeTime").val("");
+                $("#PhotoLongitude").val("");
+                $("#PhotoLatitude").val("");
+                $("#PhotoHeight").val("");
+                $("#PhotoPlant").val("");
+                $("#Temperature").val("");
+                $("#Weather").val("");
+                $("#photoPhenology2").val("");
+                $("#PhotoLink").val("");
+                $("#Cover").removeAttr("checked");
+            }
+        });
+        function onChange() {
+            var selectvalue = $("#photoPhenology1").val();
+            if(selectvalue == "其他"){
+                $("#photoPhenology2").removeAttr("type");
+            }else{
+                $("#photoPhenology2").attr("type","hidden");
+                $("#photoPhenology2").val(selectvalue);
+            }
+        };
+        function onReset() {
+            $(".fileinput-remove").click();
+        };
+        function AlbumList(list) {
+            $.each(list, function(Upload, element){
+                if(element.AlbumsName == "默认相册"){
+                    return;
+                }else{
+                    var optionstr = "<option>" + element.AlbumsName + "</option>";
+                    $("#AlbumName1").append(optionstr);
+                }
+            });
+        }
+    </script>
+}

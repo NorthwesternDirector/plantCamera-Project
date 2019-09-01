@@ -1,0 +1,310 @@
+<div class="main_container">
+    <div class="col-md-3 left_col">
+        <div class="left_col scroll-view">
+        <div class="navbar nav_title" style="border: 0;">
+            <a asp-controller="Home" asp-action="Index" class="site_title"><i class="fa fa-leaf"></i> <span>Plant Camera</span></a>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <!-- menu profile quick info -->
+        <div class="profile clearfix">
+            <div class="profile_pic">
+            <img src="~/images/user.png" alt="..." class="img-circle profile_img">
+            </div>
+            <div class="profile_info">
+            <span>欢迎您，</span>
+            <h2>@ViewData["UserName"]</h2>
+            </div>
+        </div>
+        <!-- /menu profile quick info -->
+
+        <br />
+
+        <!-- sidebar menu -->
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div class="menu_section">
+            <h3>主要功能</h3>
+            <ul class="nav side-menu">
+                <li><a asp-controller="Home" asp-action="Index"><i class="fa fa-desktop"></i> 主页 </a>
+                </li>
+                <li><a><i class="fa fa-camera"></i> 相册管理 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a asp-controller="Camera" asp-action="Album">我的相册</a></li>
+                    <li><a asp-controller="Camera" asp-action="Upload">图片上传</a></li>
+                </ul>
+                </li>
+                <li><a><i class="fa fa-map"></i> 地图显示 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a asp-controller="Map" asp-action="MyPhotoMap">个人足迹</a></li>
+                    <li><a asp-controller="Map" asp-action="PlantMap">植物地图</a></li>
+                    <li><a asp-controller="Map" asp-action="PlantSearch">植物检索</a></li>
+                </ul>
+                </li>
+                <li><a><i class="fa fa-bar-chart-o"></i> 分析专题 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a asp-controller="Analysis" asp-action="Topic">分析专题</a></li>
+                    <li><a asp-controller="Analysis" asp-action="PointsMap">观测站点</a></li>
+                    <li><a asp-controller="Analysis" asp-action="stationsAnalysis">站点分析</a></li>
+                </ul>
+                </li>
+                <li><a><i class="fa fa-cogs"></i> 个人设置 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a asp-controller="Manage" asp-action="ChangePassword">修改密码</a></li>
+                    <li><a asp-controller="Manage" asp-action="ChangeProfile">修改头像</a></li>
+                    <li><a asp-controller="Manage" asp-action="ConfirmEmail">邮箱绑定</a></li>
+                </ul>
+                </li>
+            </ul>
+            </div>
+            <div class="menu_section">
+            <h3>其他</h3>
+            <ul class="nav side-menu">
+                <li class="active"><a><i class="fa fa-bug"></i> 开发者 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a asp-controller="Developer" asp-action="Contact">联系我们</a></li>
+                </ul>
+                </li>     
+                <li><a><i class="fa fa-tasks"></i> 高级功能 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a asp-controller="Developer" asp-action="DataReview">数据审查</a></li>
+                    <li><a asp-controller="Developer" asp-action="UsersManage">用户管理</a></li>
+                    <li><a asp-controller="Developer" asp-action="DataOutput">数据导出</a></li>
+                </ul>
+                </li>         
+                <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> 拓展功能 <span class="label label-success pull-right">建设中</span></a></li>
+            </ul>
+            </div>
+
+        </div>
+        <!-- /sidebar menu -->
+
+        <!-- /menu footer buttons -->
+        <div class="sidebar-footer hidden-small">
+            <a data-toggle="tooltip" data-placement="top" title="Settings">
+            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="Lock">
+            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="注销" asp-controller="Account" asp-action="Login">
+            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+            </a>
+        </div>
+        <!-- /menu footer buttons -->
+        </div>
+    </div>
+
+    <!-- top navigation -->
+    <div class="top_nav">
+        <div class="nav_menu">
+            <nav>
+                <div class="nav toggle">
+                    <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="">
+                        <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <img src="~/images/user.png" alt="">@ViewData["UserName"]
+                        <span class="fa fa-angle-down"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-usermenu pull-right">
+                        <li>
+                            <a href="javascript:;">
+                            <span class="badge bg-red pull-right">50%</span>
+                            <span>帮助</span>
+                            </a>
+                        </li>
+                        <li><a asp-controller="Account" asp-action="Login"><i class="fa fa-sign-out pull-right"></i>注销</a></li>
+                        </ul>
+                    </li>
+
+                    <li role="presentation" class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-envelope-o"></i>
+                        <span class="badge bg-green">1</span>
+                        </a>
+                        <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                        <li>
+                            <a>
+                            <span class="image"><img src="~/images/user.png" alt="Profile Image" /></span>
+                            <span>
+                                <span>管理员</span>
+                                <span class="time">3分钟前</span>
+                            </span>
+                            <span class="message">
+                                您有新的消息，请及时查看
+                            </span>
+                            </a>
+                        </li>
+                        <li>
+                            <div class="text-center">
+                            <a>
+                                <strong>查看所有消息</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                            </div>
+                        </li>
+                        </ul>
+                    </li>
+                    <li style="padding-top:14px;">
+                        <div id="tp-weather-widget" style="margin-right:10px;"></div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- /top navigation -->
+
+    <!-- page content -->
+    <div class="right_col" role="main">
+        <div class="row">
+            <div class="col-md-8 col-sm-8 col-xs-12">
+                <div class="x_panel" style="">
+                    <div class="x_title">
+                        <h2>开发者信息 <small> 截止2017年11月</small></h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="x_content">
+                        <ul class="messages">
+                            <li>
+                                <img src="~/images/user.png" class="avatar" alt="Avatar">
+                                <div class="message_date">
+                                    <h3 class="date text-info">24</h3>
+                                    <p class="month">May</p>
+                                </div>
+                                <div class="message_wrapper">
+                                    <h4 class="heading">王艳杰</h4>
+                                    <blockquote class="message">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth.</blockquote>
+                                    <br />
+                                    <p class="url">
+                                        <span class="fs1 text-info" aria-hidden="true" data-icon=""></span>
+                                        <a href="#"><i class="fa fa-paperclip"></i> User Acceptance Test.doc </a>
+                                    </p>
+                                </div>
+                            </li>
+                            <li>
+                                <img src="~/images/user.png" class="avatar" alt="Avatar">
+                                <div class="message_date">
+                                    <h3 class="date text-info">24</h3>
+                                    <p class="month">May</p>
+                                </div>
+                                <div class="message_wrapper">
+                                    <h4 class="heading">樊顺</h4>
+                                    <blockquote class="message">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth.</blockquote>
+                                    <br />
+                                    <p class="url">
+                                        <span class="fs1 text-info" aria-hidden="true" data-icon=""></span>
+                                        <a href="#"><i class="fa fa-paperclip"></i> User Acceptance Test.doc </a>
+                                    </p>
+                                </div>
+                            </li>
+                            <li>
+                                <img src="~/images/user.png" class="avatar" alt="Avatar">
+                                <div class="message_date">
+                                    <h3 class="date text-info">24</h3>
+                                    <p class="month">May</p>
+                                </div>
+                                <div class="message_wrapper">
+                                    <h4 class="heading">缪振海</h4>
+                                    <blockquote class="message">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth.</blockquote>
+                                    <br />
+                                    <p class="url">
+                                        <span class="fs1 text-info" aria-hidden="true" data-icon=""></span>
+                                        <a href="#"><i class="fa fa-paperclip"></i> User Acceptance Test.doc </a>
+                                    </p>
+                                </div>
+                            </li>
+                            <li>
+                                <img src="~/images/user.png" class="avatar" alt="Avatar">
+                                <div class="message_date">
+                                    <h3 class="date text-info">24</h3>
+                                    <p class="month">May</p>
+                                </div>
+                                <div class="message_wrapper">
+                                    <h4 class="heading">李威</h4>
+                                    <blockquote class="message">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth.</blockquote>
+                                    <br />
+                                    <p class="url">
+                                        <span class="fs1 text-info" aria-hidden="true" data-icon=""></span>
+                                        <a href="#"><i class="fa fa-paperclip"></i> User Acceptance Test.doc </a>
+                                    </p>
+                                </div>
+                            </li>
+                            <li>
+                                <img src="~/images/user.png" class="avatar" alt="Avatar">
+                                <div class="message_date">
+                                    <h3 class="date text-info">24</h3>
+                                    <p class="month">May</p>
+                                </div>
+                                <div class="message_wrapper">
+                                    <h4 class="heading">芦穗豪</h4>
+                                    <blockquote class="message">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth.</blockquote>
+                                    <br />
+                                    <p class="url">
+                                        <span class="fs1 text-info" aria-hidden="true" data-icon=""></span>
+                                        <a href="#"><i class="fa fa-paperclip"></i> User Acceptance Test.doc </a>
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>联系我们</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="panel-body">
+                            <h3 class="green"><i class="fa fa-paint-brush"></i> OUC MIT Lab</h3>
+                            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terr.</p>
+                            <br />
+
+                            <div class="project_detail">
+                                <p class="title">项目合作单位</p>
+                                <p>中国科学院地理科学与资源研究所</p>
+                                <p>中国海洋大学 - 海洋信息技术实验室</p>
+                                <br />
+                                <p class="title">项目负责人</p>
+                                <p>戴君虎 <i>研究员</i></p>
+                                <p>韩勇 <i>教授</i></p>
+                            </div>
+
+                            <br />
+                            <h5>联系方式</h5>
+                            <ul class="list-unstyled project_files">
+                                <li><a href=""><i class="fa fa-envelope-o"></i> yonghan@ouc.edu.cn</a>
+                                </li>
+                                <li><a href=""><i class="fa fa-volume-control-phone"></i> 0532-66786365</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /page content -->
+
+    <!-- footer content -->
+    <footer class="navbar-fixed-bottom">
+        <div class="pull-right">
+        plantCamera - OUC MIT Lab</a>
+        </div>
+        <div class="clearfix"></div>
+    </footer>
+    <!-- /footer content -->
+</div>

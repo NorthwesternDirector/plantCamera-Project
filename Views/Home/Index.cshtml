@@ -1,0 +1,649 @@
+@using System.Collections.Generic
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Http.Authentication
+@using plantCamera.Models.DataViewModels
+@model IEnumerable<plantCamera.Models.DataViewModels.PhotoInformation>
+
+@{
+    int i = 0;
+}
+<div class="main_container">
+    <div class="col-md-3 left_col">
+        <div class="left_col scroll-view">
+        <div class="navbar nav_title" style="border: 0;">
+            <a asp-controller="Home" asp-action="Index" class="site_title"><i class="fa fa-leaf"></i> <span>Plant Camera</span></a>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <!-- menu profile quick info -->
+        <div class="profile clearfix">
+            <div class="profile_pic">
+            <img src="~/images/user.png" alt="..." class="img-circle profile_img">
+            </div>
+            <div class="profile_info">
+            <span>欢迎您，</span>
+            <h2>@ViewData["UserName"]</h2>
+            </div>
+        </div>
+        <!-- /menu profile quick info -->
+
+        <br />
+
+        <!-- sidebar menu -->
+        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div class="menu_section">
+            <h3>主要功能</h3>
+            <ul class="nav side-menu">
+                <li class="active"><a asp-controller="Home" asp-action="Index"><i class="fa fa-desktop"></i> 主页 </a>
+                </li>
+                <li><a><i class="fa fa-camera"></i> 相册管理 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a asp-controller="Camera" asp-action="Album">我的相册</a></li>
+                    <li><a asp-controller="Camera" asp-action="Upload">图片上传</a></li>
+                </ul>
+                </li>
+                <li><a><i class="fa fa-map"></i> 地图显示 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a asp-controller="Map" asp-action="MyPhotoMap">个人足迹</a></li>
+                    <li><a asp-controller="Map" asp-action="PlantMap">植物地图</a></li>
+                    <li><a asp-controller="Map" asp-action="PlantSearch">植物检索</a></li>
+                </ul>
+                </li>
+                <li><a><i class="fa fa-bar-chart-o"></i> 分析专题 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a asp-controller="Analysis" asp-action="Topic">分析专题</a></li>
+                    <li><a asp-controller="Analysis" asp-action="PointsMap">观测站点</a></li>
+                    <li><a asp-controller="Analysis" asp-action="stationsAnalysis">站点分析</a></li>
+                </ul>
+                </li>
+                <li><a><i class="fa fa-cogs"></i> 个人设置 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a asp-controller="Manage" asp-action="ChangePassword">修改密码</a></li>
+                    <li><a asp-controller="Manage" asp-action="ChangeProfile">修改头像</a></li>
+                    <li><a asp-controller="Manage" asp-action="ConfirmEmail">邮箱绑定</a></li>
+                </ul>
+                </li>
+            </ul>
+            </div>
+            <div class="menu_section">
+            <h3>其他</h3>
+            <ul class="nav side-menu">
+                <li><a><i class="fa fa-bug"></i> 开发者 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a asp-controller="Developer" asp-action="Contact">联系我们</a></li>
+                </ul>
+                </li> 
+                <li><a><i class="fa fa-tasks"></i> 高级功能 <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a asp-controller="Developer" asp-action="DataReview">数据审查</a></li>
+                    <li><a asp-controller="Developer" asp-action="UsersManage">用户管理</a></li>
+                    <li><a asp-controller="Developer" asp-action="DataOutput">数据导出</a></li>
+                </ul>
+                </li>             
+                <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> 拓展功能 <span class="label label-success pull-right">建设中</span></a></li>
+            </ul>
+            </div>
+
+        </div>
+        <!-- /sidebar menu -->
+
+        <!-- /menu footer buttons -->
+        <div class="sidebar-footer hidden-small">
+            <a data-toggle="tooltip" data-placement="top" title="Settings">
+            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="Lock">
+            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="注销" asp-controller="Account" asp-action="Login">
+            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+            </a>
+        </div>
+        <!-- /menu footer buttons -->
+        </div>
+    </div>
+
+    <!-- top navigation -->
+    <div class="top_nav">
+        <div class="nav_menu">
+            <nav>
+                <div class="nav toggle">
+                    <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="">
+                        <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <img src="~/images/user.png" alt="">@ViewData["UserName"]
+                        <span class="fa fa-angle-down"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-usermenu pull-right">
+                        <li>
+                            <a>
+                            <span class="badge bg-red pull-right">50%</span>
+                            <span>帮助</span>
+                            </a>
+                        </li>
+                        <li><a asp-controller="Account" asp-action="Login"><i class="fa fa-sign-out pull-right"></i>注销</a></li>
+                        </ul>
+                    </li>
+
+                    <li role="presentation" class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-envelope-o"></i>
+                        <span class="badge bg-green">1</span>
+                        </a>
+                        <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                        <li>
+                            <a>
+                            <span class="image"><img src="~/images/user.png" alt="Profile Image" /></span>
+                            <span>
+                                <span>管理员</span>
+                                <span class="time">3分钟前</span>
+                            </span>
+                            <span class="message">
+                                您有新的消息，请及时查看
+                            </span>
+                            </a>
+                        </li>
+                        <li>
+                            <div class="text-center">
+                            <a>
+                                <strong>查看所有消息</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                            </div>
+                        </li>
+                        </ul>
+                    </li>
+                    <li style="padding-top:14px;">
+                        <div id="tp-weather-widget" style="margin-right:10px;"></div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- /top navigation -->
+
+    <!-- page content -->
+    <div class="right_col" role="main">
+        <!-- photo statistics -->
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel" style="">
+                    <div class="x_title">
+                        <h2>图片数据</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="x_content">
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <div class="demo-container" style="height:280px">
+                                <div id="chart_plot" class="demo-placeholder"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-12 bg-white">
+                            <div class="well tile_count" style="overflow: auto">
+                                <h2>数量统计</h2>
+                                <hr />
+                                <div class="tile_stats_count">
+                                    <span class="count_top"><i class="fa fa-user"></i> 个人累计图片量</span>
+                                    <div class="count green">@ViewBag.PhotoNumber 张</div>
+                                    <span class="count_bottom"><i class="green"><i class="fa fa-arrow-up"></i>34% </i> 同比上月</span>
+                                </div>
+                                <div class="tile_stats_count">
+                                    <span class="count_top"><i class="fa fa-trophy"></i> 图片质量</span>
+                                    <div class="count">98 分</div>
+                                    <span class="count_bottom"><i class="red"><i class="fa fa-arrow-down"></i>10% </i> 同比上月</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /photo statistics -->
+        <!-- form date pickers -->
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>我的相册</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="gallery">
+                            <div id="gallery">
+                                @foreach(var item in ViewBag.AlbumList as List<AlbumB>)
+                                {
+                                    <a href="@item.CoverLink"><img src="@item.CoverLink" alt="@item.AlbumsName"/></a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-8 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>今日签到<small>（按照<strong>照片拍摄时间</strong>自动签到）</small></h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="x_content">
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            <div id="calendar"></div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            <div class="well" style="overflow: auto">
+                                <div>
+                                    日期时间选择
+                                    <form class="form-horizontal">
+                                        <fieldset>
+                                        <div class="control-group">
+                                            <div class="controls">
+                                                <div class="input-prepend input-group">
+                                                    <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                                    <input type="text" name="reservation-time" id="reportrange" class="form-control" value="11/01/2017 - 11/03/2017" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </fieldset>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="tile-stats">
+                                <div class="icon"><i class="fa fa-check-square-o"></i></div>
+                                <div class="count">@ViewBag.DateNumber 天</div>
+                                <hr />
+                                <h3>签到率 <i>97.3%</i></h3>
+                                <p>共漏签 5 天</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /form datepicker -->
+        <!-- photo history -->
+        <div class="row">
+            <div class="col-md-8 col-sm-8 col-xs-12">
+                <div class="x_panel tile fixed_height_350">
+                    <div class="x_title">
+                        <h2>数据概览</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="dashboard-widget-content">
+                            <div class="col-md-4 hidden-small">
+                            <h2 class="line_30">125.7k Views from 60 countries</h2>
+
+                            <table class="countries_list">
+                                <tbody>
+                                <tr>
+                                    <td>United States</td>
+                                    <td class="fs15 fw700 text-right">33%</td>
+                                </tr>
+                                <tr>
+                                    <td>France</td>
+                                    <td class="fs15 fw700 text-right">27%</td>
+                                </tr>
+                                <tr>
+                                    <td>Germany</td>
+                                    <td class="fs15 fw700 text-right">16%</td>
+                                </tr>
+                                <tr>
+                                    <td>Spain</td>
+                                    <td class="fs15 fw700 text-right">11%</td>
+                                </tr>
+                                <tr>
+                                    <td>Britain</td>
+                                    <td class="fs15 fw700 text-right">10%</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            </div>
+                            <div id="world-map-gdp" class="col-md-8 col-sm-12 col-xs-12" style="height:230px;"></div>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="x_panel tile fixed_height_350">
+                    <div class="x_title">
+                        <h2>上传历史</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="dashboard-widget-content">
+                            <ul class="list-unstyled timeline widget">
+                                @foreach(var item in Model)
+                                {
+                                    if(i < 3)
+                                    {
+                                        <li>
+                                            <div class="block">
+                                                <div class="block_content">
+                                                    <h2 class="title">@Html.DisplayFor(modelItem => item.PhotoUploadTime) <a>上传图片 1 张</a></h2>
+                                                    <div class="byline">
+                                                    来自<a>@Html.DisplayFor(modelItem => item.PhotoSource)</a>
+                                                    </div>
+                                                    <p class="excerpt">植物名：@Html.DisplayFor(modelItem => item.PhotoPlant)……<a>查看详情</a></p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        i ++;
+                                    }
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /photo history -->
+        <div class="footer-bottom"></div>
+    </div>
+    <!-- /page content -->
+
+    <!-- footer content -->
+    <footer class="navbar-fixed-bottom">
+        <div class="pull-right">
+        plantCamera - OUC MIT Lab</a>
+        </div>
+        <div class="clearfix"></div>
+    </footer>
+    <!-- /footer content -->
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function() {
+            init_daterangepicker();
+            init_calendar();
+            init_flot_chart();
+        });
+
+        /* DATERANGEPICKER */
+
+        function init_daterangepicker() {
+
+            if( typeof ($.fn.daterangepicker) === 'undefined'){ return; }
+            console.log('init_daterangepicker');
+
+            var cb = function(start, end, label) {
+                console.log(start.toISOString(), end.toISOString(), label);
+                $('#reportrange span').html(start.format('YYYY年MM月DD日') + ' - ' + end.format('YYYY年MM月DD日'));
+            };
+
+            var optionSet1 = {
+                startDate: moment().startOf('month'),
+                endDate: moment(),
+                minDate: '2015/01/01',
+                maxDate: '2020/12/31',
+                dateLimit: {
+                days: 60
+                },
+                showDropdowns: true,
+                timePicker: false,
+                timePickerIncrement: 1,
+                timePicker12Hour: true,
+                ranges: {
+                '本月（到目前）': [moment().startOf('month'), moment()],
+                '本月（整月）': [moment().startOf('month'), moment().endOf('month')],
+                '上月': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+                '过去7天': [moment().subtract(6, 'days'), moment()],
+                '过去30天': [moment().subtract(29, 'days'), moment()]
+                },
+                opens: 'left',
+                buttonClasses: ['btn btn-default'],
+                applyClass: 'btn-small btn-primary',
+                cancelClass: 'btn-small',
+                format: 'YYYY/MM/DD',
+                separator: ' to ',
+                locale: {
+                applyLabel: '更改',
+                cancelLabel: '取消',
+                fromLabel: '从',
+                toLabel: '到',
+                customRangeLabel: '自定义',
+                daysOfWeek: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
+                monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+                firstDay: 1
+                }
+            };
+            
+            $('#reportrange span').html(moment().subtract(29, 'days').format('YYYY年MM月DD日') + ' - ' + moment().format('YYYY年MM月DD日'));
+            $('#reportrange').daterangepicker(optionSet1, cb);
+            $('#reportrange').on('show.daterangepicker', function() {
+                console.log("show event fired");
+            });
+            $('#reportrange').on('hide.daterangepicker', function() {
+                console.log("hide event fired");
+            });
+            $('#reportrange').on('apply.daterangepicker', function(ev, picker) {
+                console.log("apply event fired, start/end dates are " + picker.startDate.format('YYYY年MM月DD日') + " to " + picker.endDate.format('MMMM D, YYYY'));
+            });
+            $('#reportrange').on('cancel.daterangepicker', function(ev, picker) {
+                console.log("cancel event fired");
+            });
+            $('#options1').click(function() {
+                $('#reportrange').data('daterangepicker').setOptions(optionSet1, cb);
+            });
+            $('#options2').click(function() {
+                $('#reportrange').data('daterangepicker').setOptions(optionSet2, cb);
+            });
+            $('#destroy').click(function() {
+                $('#reportrange').data('daterangepicker').remove();
+            });
+
+        }
+
+
+        /* CALENDAR */
+
+        function init_calendar() {
+
+            if (typeof($.fn.fullCalendar) === 'undefined') { return; }
+            console.log('init_calendar');
+
+            var date = new Date(),
+                d = date.getDate(),
+                m = date.getMonth(),
+                y = date.getFullYear(),
+                started,
+                categoryClass;
+
+            var calendar = $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev month',
+                    center: 'title',
+                    right: 'today next'
+                },
+                height: 294,
+                buttonText: {
+                    today: '今天',
+                    month: '月份',
+                    week: '周',
+                    day: '天'
+                },
+                allDayText: '全天',
+                monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+                monthNamesShort: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+                dayNames: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
+                dayNamesShort: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
+                selectable: true,
+                selectHelper: true,
+                select: function(start, end, allDay) {
+                    $('#fc_create').click();
+
+                    started = start;
+                    ended = end;
+
+                    $(".antosubmit").on("click", function() {
+                        var title = $("#title").val();
+                        if (end) {
+                            ended = end;
+                        }
+
+                        categoryClass = $("#event_type").val();
+
+                        if (title) {
+                            calendar.fullCalendar('renderEvent', {
+                                    title: title,
+                                    start: started,
+                                    end: end,
+                                    allDay: allDay
+                                },
+                                true // make the event "stick"
+                            );
+                        }
+
+                        $('#title').val('');
+
+                        calendar.fullCalendar('unselect');
+
+                        $('.antoclose').click();
+
+                        return false;
+                    });
+                },
+                eventClick: function(calEvent, jsEvent, view) {
+                    $('#fc_edit').click();
+                    $('#title2').val(calEvent.title);
+
+                    categoryClass = $("#event_type").val();
+
+                    $(".antosubmit2").on("click", function() {
+                        calEvent.title = $("#title2").val();
+
+                        calendar.fullCalendar('updateEvent', calEvent);
+                        $('.antoclose2').click();
+                    });
+
+                    calendar.fullCalendar('unselect');
+                },
+                editable: true,
+                events: [{
+                    title: '已签',
+                    start: new Date(y, m, 1)
+                }, {
+                    title: '已签',
+                    start: new Date(y, m, 2)
+                }]
+            });
+
+        };
+
+        function gd(year, month, day) {
+            return new Date(year, month - 1, day).getTime();
+        }
+        function init_flot_chart() {
+
+            if (typeof($.plot) === 'undefined') { return; }
+
+            var chart_plot_data = [];
+
+            for (var i = 0; i < 30; i++) {
+                chart_plot_data.push([new Date(Date.today().add(i).days()).getTime(), randNum() + i + i + 10]);
+            }
+
+            var chart_plot_settings = {
+                grid: {
+                    show: true,
+                    aboveData: true,
+                    color: "#3f3f3f",
+                    labelMargin: 10,
+                    axisMargin: 0,
+                    borderWidth: 0,
+                    borderColor: null,
+                    minBorderMargin: 5,
+                    clickable: true,
+                    hoverable: true,
+                    autoHighlight: true,
+                    mouseActiveRadius: 100
+                },
+                series: {
+                    lines: {
+                        show: true,
+                        fill: true,
+                        lineWidth: 2,
+                        steps: false
+                    },
+                    points: {
+                        show: true,
+                        radius: 4.5,
+                        symbol: "circle",
+                        lineWidth: 3.0
+                    }
+                },
+                legend: {
+                    position: "ne",
+                    margin: [0, -25],
+                    noColumns: 0,
+                    labelBoxBorderColor: null,
+                    labelFormatter: function(label, series) {
+                        return label + '&nbsp;&nbsp;';
+                    },
+                    width: 40,
+                    height: 1
+                },
+                colors: ['#96CA59', '#3F97EB', '#72c380', '#6f7a8a', '#f7cb38', '#5a8022', '#2c7282'],
+                shadowSize: 0,
+                tooltip: true,
+                tooltipOpts: {
+                    content: "%s: %y.0",
+                    xDateFormat: "%d/%m",
+                    shifts: {
+                        x: -30,
+                        y: -50
+                    },
+                    defaultTheme: false
+                },
+                yaxis: {
+                    min: 0
+                },
+                xaxis: {
+                    mode: "time",
+                    minTickSize: [1, "day"],
+                    timeformat: "%d/%m/%y",
+                    min: chart_plot_data[0][0],
+                    max: chart_plot_data[20][0]
+                }
+            };
+
+            if ($("#chart_plot").length) {
+                $.plot($("#chart_plot"), [{
+                    label: "图片拍摄上传张数",
+                    data: chart_plot_data,
+                    lines: {
+                        fillColor: "rgba(150, 202, 89, 0.12)"
+                    },
+                    points: {
+                        fillColor: "#fff"
+                    }
+                }], chart_plot_settings);
+
+            }
+
+        }
+    </script>
+}

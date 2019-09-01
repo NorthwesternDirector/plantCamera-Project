@@ -1,0 +1,145 @@
+@using System.Collections.Generic
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Http.Authentication
+@model LoginViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>三月桃花红似海 - 登录</title>
+
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <!-- Font Awesome -->
+        <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
+        <!-- sweetalert2 -->
+        <link href="~/lib/sweetalert2/dist/sweetalert2.css" rel="stylesheet"/>
+
+        <!-- Custom Theme Style -->
+        <link href="~/css/custom.css" rel="stylesheet"/>
+        <link href="~/css/login.css" rel="stylesheet"/>
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <!-- Font Awesome -->
+        <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
+        <!-- sweetalert2 -->
+        <link href="~/lib/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet"/>
+        
+        <!-- Custom Theme Style -->
+        <link href="~/css/custom.css" rel="stylesheet" asp-append-version="true"/>
+        <link href="~/css/login.css" rel="stylesheet"/>
+    </environment>
+</head>
+<body class="hold-transition login-page">
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/layer/layer.js"></script>
+    <script src="~/lib/js-cookie/src/js.cookie.js"></script>
+    <script src="~/lib/jsencrypt/jsencrypt.min.js"></script>
+    <script src="~/lib/sweetalert2/dist/sweetalert2.min.js"></script>
+    <script src="~/lib/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    <div class="login-border">
+        <div class="login-box">
+            <div class="login-logo">
+                <h1>植物物候移动观测系统</h1>
+            </div>
+            <hr class="login-hr"/>
+            <!-- /.login-logo -->
+            <div class="login-box-body">
+                <div class="login-nav">
+                    <nav>
+                        <a class="active" asp-controller="Account" asp-action="Login">登录</a> |
+                        <a asp-controller="Account" asp-action="Register">注册</a> 
+                    </nav>
+                </div>
+                <form asp-controller="Account" asp-action="Login" method="post" onsubmit="onSubmit()">
+                    <div class="form-group has-feedback">
+                        <input asp-for="Email" type="text" class="form-control" placeholder="邮箱"/>
+                        <span class="glyphicon glyphicon-envelope form-control-feedback right"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <input asp-for="Password" type="password" class="form-control" placeholder="密码"/>
+                        <span class="glyphicon glyphicon-lock form-control-feedback right"></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <div class="checkbox">
+                                <label asp-for="RememberMe">
+                                    <input asp-for="RememberMe"/> @Html.DisplayNameFor(m => m.RememberMe)
+                                </label>
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-xs-4">
+                            <button id="btnLogin" type="submit" class="btn btn-custom btn-block btn-flat">登录</button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </form>
+                <div hidden>@Html.ValidationMessage("loginError")</div>
+            </div>
+            <!-- /.login-box-body -->
+        </div>
+        <!-- /.login-box -->
+    </div>
+    
+    <script>
+        $(function () {
+            //判断之前是否有设置cookie，如果有，则设置【记住我】选择框
+            var plantCamera_email = Cookies.get('plantCamera_email');
+            var plantCamera_password = Cookies.get('plantCamera_password');
+            if (plantCamera_email != undefined) {
+                $("#RememberMe").attr("checked", "checked");
+            } else {
+                $("#RememberMe").removeAttr("checked");
+            }
+            //读取cookie
+            if ($("#RememberMe:checked").length > 0) {
+                $("#Email").val(plantCamera_email);
+                $("#Password").val(plantCamera_password);
+            }
+            //验证信息
+            var validation = $(".field-validation-error").text();
+            if(validation != ""){
+                swal({
+                    text: validation,
+                    type: "error",
+                    confirmButtonText: "确定",
+                    confirmButtonColor: "#1ABB9C"
+                });
+            }
+        });
+        //根据是否勾选记住我记录或清除cookie
+        function onSubmit() {
+            var pubKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDv32K/c7XC9KiCzad5C4l8xEvE7zUOf4//0G9pg7kiZNeJ2OPCD7cJqPMRMwDQbWkwSjq6jIWzM9i9q+D/bLyKr/+rOUfYpIfEXYYCxIogVb/FBnZkVownaHbRlI/WMJj7OXHSWVTWfeTinygUopXyoCFZuO9pkPzo8i5LJds4YQIDAQAB";
+            var ePassword = onEncrypt($("#Password").val(),pubKey);
+            $("#Password").val(ePassword);
+
+            if ($("#RememberMe:checked").length > 0) {
+                //设置cookie
+                Cookies.set('plantCamera_email', $("#Email").val(), { expires: 1, path: '/' });
+                Cookies.set('plantCamera_password', $("#Password").val(), { expires: 1, path: '/' });
+            } else {
+                //清除cookie
+                Cookies.remove('plantCamera_email', { path: '/' });
+                Cookies.remove('plantCamera_password', { path: '/' });
+            }
+        };
+        function onEncrypt(data,pubkey){
+            var encrypt = new JSEncrypt();
+            encrypt.setPublicKey(pubkey);
+            var returnData = encrypt.encrypt(data);
+            return returnData;
+        };
+    </script>
+</body>
+</html>

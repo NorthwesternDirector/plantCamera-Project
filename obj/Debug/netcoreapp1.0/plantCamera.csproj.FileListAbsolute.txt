@@ -1,0 +1,10 @@
+/Users/fairy/plantCamera/bin/Debug/netcoreapp1.0/plantCamera.db
+/Users/fairy/plantCamera/bin/Debug/netcoreapp1.0/plantCamera.deps.json
+/Users/fairy/plantCamera/bin/Debug/netcoreapp1.0/plantCamera.runtimeconfig.json
+/Users/fairy/plantCamera/bin/Debug/netcoreapp1.0/plantCamera.runtimeconfig.dev.json
+/Users/fairy/plantCamera/bin/Debug/netcoreapp1.0/plantCamera.dll
+/Users/fairy/plantCamera/bin/Debug/netcoreapp1.0/plantCamera.pdb
+/Users/fairy/plantCamera/obj/Debug/netcoreapp1.0/UserSecretsAssemblyInfo.cs
+/Users/fairy/plantCamera/obj/Debug/netcoreapp1.0/plantCamera.AssemblyInfo.cs
+/Users/fairy/plantCamera/obj/Debug/netcoreapp1.0/plantCamera.dll
+/Users/fairy/plantCamera/obj/Debug/netcoreapp1.0/plantCamera.pdb

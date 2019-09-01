@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>三月桃花红似海</title>
+
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <!-- Animate.css -->
+        <link href="~/lib/animate.css/animate.min.css" rel="stylesheet">
+        <!-- Font Awesome -->
+        <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
+        <!-- NProgress -->
+        <link href="~/lib/nprogress/nprogress.css" rel="stylesheet"/>
+        <!-- iCheck -->
+        <link href="~/lib/iCheck/skins/flat/green.css" rel="stylesheet"/>
+        <!-- FullCalendar -->
+        <link href="~/lib/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet">
+        <link href="~/lib/fullcalendar/dist/fullcalendar.print.css" rel="stylesheet" media="print">
+        
+        <!-- bootstrap-progressbar -->
+        <link href="~/lib/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet"/>
+        <!-- JQVMap -->
+        <link href="~/lib/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
+        <!-- bootstrap-daterangepicker -->
+        <link href="~/lib/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet"/>
+        <!-- sweetalert2 -->
+        <link href="~/lib/sweetalert2/dist/sweetalert2.css" rel="stylesheet"/>
+        <!-- cropper.js -->
+        <link href="~/lib/cropper/dist/cropper.css" rel="stylesheet">
+        <!-- bootstrap-fileinput -->
+        <link href="~/lib/bootstrap-fileinput/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+        <!-- jgallery -->
+        <link rel="stylesheet" type="text/css" media="all" href="~/lib/jgallery/dist/css/jgallery.min.css?v=1.6.2" />
+        <!-- Magnific Popup -->
+        <link rel="stylesheet" href="~/lib/magnific-popup/dist/magnific-popup.css"/>
+
+        <!-- Custom Theme Style -->
+        <link href="~/css/custom.css" rel="stylesheet"/>
+        <link href="~/css/setting.css" rel="stylesheet"/>
+        <link href="~/css/login.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="~/css/templatemo-style.css">
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <!-- Animate.css -->
+        <link href="~/lib/animate.css/animate.min.css" rel="stylesheet">
+        <!-- Font Awesome -->
+        <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
+        <!-- NProgress -->
+        <link href="~/lib/nprogress/nprogress.css" rel="stylesheet"/>
+        <!-- iCheck -->
+        <link href="~/lib/iCheck/skins/flat/green.css" rel="stylesheet"/>
+        <!-- FullCalendar -->
+        <link href="~/lib/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet">
+        <link href="~/lib/fullcalendar/dist/fullcalendar.print.css" rel="stylesheet" media="print">
+        
+        <!-- bootstrap-progressbar -->
+        <link href="~/lib/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet"/>
+        <!-- JQVMap -->
+        <link href="~/lib/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
+        <!-- bootstrap-daterangepicker -->
+        <link href="~/lib/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet"/>
+        <!-- sweetalert2 -->
+        <link href="~/lib/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet"/>
+        <!-- cropper.js -->
+        <link href="~/lib/cropper/dist/cropper.min.css" rel="stylesheet">
+        <!-- bootstrap-fileinput -->
+        <link href="~/lib/bootstrap-fileinput/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+        <!-- jgallery -->
+        <link rel="stylesheet" type="text/css" media="all" href="~/lib/jgallery/dist/css/jgallery.min.css?v=1.6.2" />
+        <!-- Magnific Popup -->
+        <link rel="stylesheet" href="~/lib/magnific-popup/dist/magnific-popup.css"/>
+
+        <!-- Custom Theme Style -->
+        <link href="~/css/custom.css" rel="stylesheet"/>
+        <link href="~/css/setting.css" rel="stylesheet"/>
+        <link href="~/css/login.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="~/css/templatemo-style.css">
+    </environment>
+</head>
+<body class="nav-md">
+    <div class="container body">
+        @RenderBody()
+    </div>
+    <environment names="Development">
+        <!-- echarts -->
+        <script type="text/javascript" src="~/lib/echarts/dist/echarts.js"></script>
+        <script type="text/javascript" src="https://api.map.baidu.com/getscript?v=2.0&ak=vH3H5ZkMAsZvVNm5HVHdwGkFBePoRxBm"></script>
+        <script type="text/javascript" src="~/lib/echarts/vendors/ecStat.min.js"></script>
+        <script type="text/javascript" src="~/lib/echarts/dist/extension/dataTool.min.js"></script>
+        <script type="text/javascript" src="~/lib/echarts/map/js/china.js"></script>
+        <script type="text/javascript" src="~/lib/echarts/map/js/world.js"></script>
+        <script type="text/javascript" src="~/lib/echarts/vendors/bmap.min.js"></script>
+        <script type="text/javascript" src="~/lib/echarts/vendors/simplex.js"></script>
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+
+        <!-- FastClick -->
+        <script src="~/lib/fastclick/lib/fastclick.js"></script>
+        <!-- NProgress -->
+        <script src="~/lib/nprogress/nprogress.js"></script>
+        <!-- Chart.js -->
+        <script src="~/lib/Chart.js/dist/Chart.min.js"></script>
+        <!-- gauge.js -->
+        <script src="~/lib/gauge.js/dist/gauge.min.js"></script>
+        <!-- bootstrap-progressbar -->
+        <script src="~/lib/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+        <!-- iCheck -->
+        <script src="~/lib/iCheck/icheck.min.js"></script>
+        <!-- Skycons -->
+        <script src="~/lib/skycons/skycons.js"></script>
+        <!-- Flot -->
+        <script src="~/lib/Flot/jquery.flot.js"></script>
+        <script src="~/lib/Flot/jquery.flot.pie.js"></script>
+        <script src="~/lib/Flot/jquery.flot.time.js"></script>
+        <script src="~/lib/Flot/jquery.flot.stack.js"></script>
+        <script src="~/lib/Flot/jquery.flot.resize.js"></script>
+        <!-- Flot plugins -->
+        <script src="~/lib/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+        <script src="~/lib/flot-spline/js/jquery.flot.spline.min.js"></script>
+        <script src="~/lib/flot.curvedlines/curvedLines.js"></script>
+        <!-- DateJS -->
+        <script src="~/lib/DateJS/build/date.js"></script>
+        <!-- JQVMap -->
+        <script src="~/lib/jqvmap/dist/jquery.vmap.js"></script>
+        <script src="~/lib/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+        <script src="~/lib/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+        <!-- bootstrap-daterangepicker -->
+        <script src="~/lib/moment/min/moment.min.js"></script>
+        <script src="~/lib/bootstrap-daterangepicker/daterangepicker.js"></script>
+        <!-- bootstrap-fileinput -->
+        <script type="text/javascript" src="~/lib/bootstrap-fileinput/js/fileinput.js"></script>
+        <script type="text/javascript" src="~/lib/bootstrap-fileinput/js/locales/zh.js"></script>
+        <!-- sweetalert2 -->
+        <script src="~/lib/sweetalert2/dist/sweetalert2.js"></script>
+        <!-- cropper.js -->
+        <script src="~/lib/cropper/dist/cropper.js"></script>
+        <!-- FullCalendar -->
+        <script src="~/lib/moment/min/moment.min.js"></script>
+        <script src="~/lib/fullcalendar/dist/fullcalendar.min.js"></script>
+        <!-- jgallery -->
+        <script type="text/javascript" src="~/lib/jgallery/dist/js/jgallery.js?v=1.6.2"></script>
+        <script type="text/javascript" src="~/lib/jgallery/dist/js/touchswipe.min.js"></script>
+        <script type="text/javascript" src="~/lib/jgallery/dist/js/tinycolor-0.9.16.min.js"></script>
+        <!-- Magnific Popup -->
+        <script src="~/lib/magnific-popup/dist/jquery.magnific-popup.js"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <!-- echarts -->
+        <script src="~/lib/echarts/dist/echarts.min.js"></script>
+        <script type="text/javascript" src="https://api.map.baidu.com/getscript?v=2.0&ak=vH3H5ZkMAsZvVNm5HVHdwGkFBePoRxBm"></script>
+        <script type="text/javascript" src="~/lib/echarts/vendors/ecStat.min.js"></script>
+        <script type="text/javascript" src="~/lib/echarts/dist/extension/dataTool.min.js"></script>
+        <script type="text/javascript" src="~/lib/echarts/map/js/china.js"></script>
+        <script type="text/javascript" src="~/lib/echarts/map/js/world.js"></script>
+        <script type="text/javascript" src="~/lib/echarts/vendors/bmap.min.js"></script>
+        <script type="text/javascript" src="~/lib/echarts/vendors/simplex.js"></script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.3.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+
+        <!-- FastClick -->
+        <script src="~/lib/fastclick/lib/fastclick.js"></script>
+        <!-- NProgress -->
+        <script src="~/lib/nprogress/nprogress.js"></script>
+        <!-- Chart.js -->
+        <script src="~/lib/Chart.js/dist/Chart.min.js"></script>
+        <!-- gauge.js -->
+        <script src="~/lib/gauge.js/dist/gauge.min.js"></script>
+        <!-- bootstrap-progressbar -->
+        <script src="~/lib/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+        <!-- iCheck -->
+        <script src="~/lib/iCheck/icheck.min.js"></script>
+        <!-- Skycons -->
+        <script src="~/lib/skycons/skycons.js"></script>
+        <!-- Flot -->
+        <script src="~/lib/Flot/jquery.flot.js"></script>
+        <script src="~/lib/Flot/jquery.flot.pie.js"></script>
+        <script src="~/lib/Flot/jquery.flot.time.js"></script>
+        <script src="~/lib/Flot/jquery.flot.stack.js"></script>
+        <script src="~/lib/Flot/jquery.flot.resize.js"></script>
+        <!-- Flot plugins -->
+        <script src="~/lib/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+        <script src="~/lib/flot-spline/js/jquery.flot.spline.min.js"></script>
+        <script src="~/lib/flot.curvedlines/curvedLines.js"></script>
+        <!-- DateJS -->
+        <script src="~/lib/DateJS/build/date.js"></script>
+        <!-- JQVMap -->
+        <script src="~/lib/jqvmap/dist/jquery.vmap.js"></script>
+        <script src="~/lib/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+        <script src="~/lib/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+        <!-- bootstrap-daterangepicker -->
+        <script src="~/lib/moment/min/moment.min.js"></script>
+        <script src="~/lib/bootstrap-daterangepicker/daterangepicker.js"></script>
+        <!-- bootstrap-fileinput -->
+        <script type="text/javascript" src="~/lib/bootstrap-fileinput/js/fileinput.min.js"></script>
+        <script type="text/javascript" src="~/lib/bootstrap-fileinput/js/locales/zh.js"></script>
+        <!-- sweetalert2 -->
+        <script src="~/lib/sweetalert2/dist/sweetalert2.min.js"></script>
+        <!-- cropper.js -->
+        <script src="~/lib/cropper/dist/cropper.min.js"></script>
+        <!-- FullCalendar -->
+        <script src="~/lib/moment/min/moment.min.js"></script>
+        <script src="~/lib/fullcalendar/dist/fullcalendar.min.js"></script>
+        <!-- jgallery -->
+        <script type="text/javascript" src="~/lib/jgallery/dist/js/jgallery.min.js?v=1.6.2"></script>
+        <script type="text/javascript" src="~/lib/jgallery/dist/js/touchswipe.min.js"></script>
+        <script type="text/javascript" src="~/lib/jgallery/dist/js/tinycolor-0.9.16.min.js"></script>
+        <!-- Magnific Popup -->
+        <script src="~/lib/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+    </environment>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
