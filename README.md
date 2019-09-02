@@ -1,43 +1,13 @@
-<<<<<<< HEAD
-# Welcome to ASP.NET Core
+## 植物物候观测系统
+* 该项目主要以 `物候数据可视化` 为目标，对全国多个观测站点的植物物候数据进行可视化分析。同时还设计了用户植物物候图片上传功能，以作后期分析使用。
+#### 项目涉及技术
+* `HTML` `CSS` `JS` `jQuery` `Bootstrap` `Echart` `baidu Map API` `ASP.NET Core MVC` `C#` `Postgres`
 
-We've made some big updates in this release, so it’s **important** that you spend a few minutes to learn what’s new.
+##### 物候数据的可视化
+1. 根据用户上传图片的坐标信息将图片展示在地图上，并添加聚类显示效果、添加点击事件
 
-You've created a new ASP.NET Core project. [Learn what's new](https://go.microsoft.com/fwlink/?LinkId=518016)
 
-## This application consists of:
+2. 利用`Echart`与`百度地图`将全国站点全部显示在地图上，选择指定年份与植物种类后便可查看其在全国范围内，在不同经纬度的条件下，植物物候的变化情况。
 
-*   Sample pages using ASP.NET Core MVC
-*   [Bower](https://go.microsoft.com/fwlink/?LinkId=518004) for managing client-side libraries
-*   Theming using [Bootstrap](https://go.microsoft.com/fwlink/?LinkID=398939)
 
-## How to
-
-*   [Add a Controller and View](https://go.microsoft.com/fwlink/?LinkID=398600)
-*   [Add an appsetting in config and access it in app.](https://go.microsoft.com/fwlink/?LinkID=699562)
-*   [Manage User Secrets using Secret Manager.](https://go.microsoft.com/fwlink/?LinkId=699315)
-*   [Use logging to log a message.](https://go.microsoft.com/fwlink/?LinkId=699316)
-*   [Add packages using NuGet.](https://go.microsoft.com/fwlink/?LinkId=699317)
-*   [Add client packages using Bower.](https://go.microsoft.com/fwlink/?LinkId=699318)
-*   [Target development, staging or production environment.](https://go.microsoft.com/fwlink/?LinkId=699319)
-
-## Overview
-
-*   [Conceptual overview of what is ASP.NET Core](https://go.microsoft.com/fwlink/?LinkId=518008)
-*   [Fundamentals of ASP.NET Core such as Startup and middleware.](https://go.microsoft.com/fwlink/?LinkId=699320)
-*   [Working with Data](https://go.microsoft.com/fwlink/?LinkId=398602)
-*   [Security](https://go.microsoft.com/fwlink/?LinkId=398603)
-*   [Client side development](https://go.microsoft.com/fwlink/?LinkID=699321)
-*   [Develop on different platforms](https://go.microsoft.com/fwlink/?LinkID=699322)
-*   [Read more on the documentation site](https://go.microsoft.com/fwlink/?LinkID=699323)
-
-## Run & Deploy
-
-*   [Run your app](https://go.microsoft.com/fwlink/?LinkID=517851)
-*   [Run tools such as EF migrations and more](https://go.microsoft.com/fwlink/?LinkID=517853)
-*   [Publish to Microsoft Azure Web Apps](https://go.microsoft.com/fwlink/?LinkID=398609)
-
-We would love to hear your [feedback](https://go.microsoft.com/fwlink/?LinkId=518015)
-=======
-# plantCamera
->>>>>>> af20bc9c3fb5e532180cad275396ed1f2c6e5398
+3. 利用`Echart`将从数据接口获得的历年植物物候数据以表格的形式可视化
